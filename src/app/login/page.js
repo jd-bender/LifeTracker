@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useAuthContext } from "../../context/AuthContext";
 import { Typography, TextField, Button, CircularProgress } from '@mui/material';
-import UnprotectedRouteConcealer from "../../ui/UnprotectedRouteConcealer";
+import RouteConcealer from "../../ui/RouteConcealer";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import signIn from "../../firebase/auth/signIn";
@@ -37,7 +37,7 @@ export default function Login() {
     };
 
     return (
-        <UnprotectedRouteConcealer>
+        <RouteConcealer isProtected={false}>
             <span className='bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center'>
                 <Typography variant="h4" className="mb-4">Life Tracker</Typography>
                 
@@ -59,6 +59,6 @@ export default function Login() {
                         </>
                 }
             </span>
-        </UnprotectedRouteConcealer>
+        </RouteConcealer>
     );
 };

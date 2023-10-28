@@ -4,7 +4,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import signUp from "../../firebase/auth/signUp";
 import { useRouter } from "next/navigation";
 import { Typography, TextField, Button } from '@mui/material';
-import UnprotectedRouteConcealer from "../../ui/UnprotectedRouteConcealer";
+import RouteConcealer from "../../ui/RouteConcealer";
 import Link from 'next/link';
 
 export default function SignUp() {
@@ -33,7 +33,7 @@ export default function SignUp() {
     };
     
     return (
-        <UnprotectedRouteConcealer>
+        <RouteConcealer isProtected={false}>
             <span className='bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center'>
                 <Typography variant="h4" sx={{marginBottom:'.5em'}}>Sign Up</Typography>
                 
@@ -49,6 +49,6 @@ export default function SignUp() {
 
                 <Link href="/login"><u>Return to Login</u></Link>
             </span>
-        </UnprotectedRouteConcealer>
+        </RouteConcealer>
     );
 };
