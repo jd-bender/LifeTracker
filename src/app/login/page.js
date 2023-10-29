@@ -1,6 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useAuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 import { Typography, TextField, Button, CircularProgress } from '@mui/material';
 import RouteConcealer from "../../ui/RouteConcealer";
 import Link from 'next/link';
@@ -12,14 +11,7 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [loggingIn, setLoggingIn] = useState(false);
 
-    const { user } = useAuthContext();
     const router = useRouter();
-
-    useEffect(() => {
-        if (user) {
-            router.push("/");
-        }
-    }, [user]);
 
     const submitLogin = async (event) => {
         event.preventDefault()

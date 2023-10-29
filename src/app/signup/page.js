@@ -1,6 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useAuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 import signUp from "../../firebase/auth/signUp";
 import { useRouter } from "next/navigation";
 import { Typography, TextField, Button } from '@mui/material';
@@ -11,14 +10,7 @@ export default function SignUp() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { user } = useAuthContext();
     const router = useRouter();
-
-    useEffect(() => {
-        if (user) {
-            router.push("/");
-        }
-    }, [user]);
 
     const submitAccountCreation = async (event) => {
         event.preventDefault();
