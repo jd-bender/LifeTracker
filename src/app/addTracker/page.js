@@ -4,11 +4,11 @@ import { TextField, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { addDataWithoutId } from "../../firebase/firestore/addData.js";
 import Toast from "../../ui/Toast.js";
+import { blueButton, bottomRightAbsolute } from "../../ui/styles.js";
 
 export default function AddTracker() {
     const [name, setName] = useState("");
     const [nameError, setNameError] = useState(false);
-    const [nameHelperText, setNameHelperText] = useState("");
     const [submittingTracker, setSubmittingTracker] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastOpen, setToastOpen] = useState(false);
@@ -19,15 +19,21 @@ export default function AddTracker() {
     const resetTrackerForm = () => {
         setName("");
         setNameError(false);
-        setNameHelperText("");
+    };
+
+    const popToastMessage = (type, text) => {
+        setToastSeverity(type);
+        setToastMessage(text);
+        setToastOpen(true);
     };
     
     const submitTracker = async () => {
         resetTrackerForm();
 
-        if (typeof name !== 'string') {
+        if (name.length === 0) {
             setNameError(true);
-            setNameHelperText("Name can only contain alphabetical characters.");
+            popToastMessage("error", "Must enter a name.");
+            return;
         }
 
         if (nameError) {
@@ -38,16 +44,12 @@ export default function AddTracker() {
             setSubmittingTracker(false);
 
             if (error) {
-                setToastMessage("Something went wrong.");
-                setToastSeverity("error");
+                popToastMessage("error", "Something went wrong.");
                 console.error(error);
             } else {
-                setToastMessage("Tracker saved successfully!");
-                setToastSeverity("success");
+                popToastMessage("success", "Tracker saved successfully!");
                 resetTrackerForm();
             }
-
-            setToastOpen(true);
         }
     };
 
@@ -62,7 +64,7 @@ export default function AddTracker() {
     };
 
     return (
-        <span className="flex">
+        <span className="flex items-center">
             <TextField 
                 label="Tracker Name" 
                 sx={{width: '20rem'}} 
@@ -70,7 +72,6 @@ export default function AddTracker() {
                 onChange={(e) => setName(e.target.value)} 
                 error={nameError} 
                 variant="outlined" 
-                helperText={nameHelperText}
             />
 
             {
@@ -78,12 +79,12 @@ export default function AddTracker() {
                     <CircularProgress />
                     :
                     <>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={submitTracker}>Submit</button>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={goToHomePage}>Back</button>
+                        <button className={`${blueButton} ml-4`} onClick={submitTracker}>Submit</button>
+                        <button className={`${blueButton} ${bottomRightAbsolute}`} onClick={goToHomePage}>Back</button>
                     </>
             }
             
-            <Toast open={toastOpen} message={toastMessage} handleClose={resetToast} />
+            <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} handleClose={resetToast} />
         </span>
     );
 }

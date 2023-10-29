@@ -23,7 +23,7 @@ export default function Home() {
                         :
                         <>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => navigateToPage("viewTrackers")}>View Trackers</button>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => navigateToPage("addTracker")}>Add Tracker</button>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-8 mr-8" onClick={() => navigateToPage("addTracker")}>Add Tracker</button>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={() => signOutFromApp()}>Log Out</button>
                         </>
                 }
