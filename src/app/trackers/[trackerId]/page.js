@@ -1,11 +1,11 @@
-import BackToHomePageButton from "../../../ui/BackButton";
+import BackButton from "../../../ui/BackButton";
 
 const TrackerPage = ({ params }) => {
     return (
         <>
             <p>page for tracker {params.trackerId}</p>
 
-            <BackToHomePageButton backLocation="viewTrackers" />
+            <BackButton backLocation="viewTrackers" />
         </>
     );
 };

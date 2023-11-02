@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { getDataFromCollection } from "../../firebase/firestore/getData";
-import BackToHomePageButton from "../../ui/BackButton";
+import BackButton from "../../ui/BackButton";
 
 const ViewTrackersPage = async () => {
     const trackers = await getDataFromCollection("trackers");
@@ -22,7 +22,7 @@ const ViewTrackersPage = async () => {
                 {trackerListItems}
             </List>
 
-            <BackToHomePageButton />
+            <BackButton />
         </span>
     );
 };
