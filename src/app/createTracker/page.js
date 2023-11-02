@@ -5,7 +5,7 @@ import Link from "next/link";
 import { addDataWithoutId } from "../../firebase/firestore/addData";
 import Toast from "../../ui/Toast";
 import RouteConcealer from "../../ui/RouteConcealer";
-import { blueButton, bottomRightAbsolute } from "../../ui/styles";
+import BackToHomePageButton from "../../ui/BackButton";
 
 const CreateTrackerPage = () => {
     const [name, setName] = useState("");
@@ -111,7 +111,7 @@ const CreateTrackerPage = () => {
                         :
                         <>
                             <button className={`${blueButton} ml-4`} onClick={submitTracker}>Submit</button>
-                            <Link href="/"><button className={`${blueButton} ${bottomRightAbsolute}`}>Back</button></Link>
+                            <BackButton />
                         </>
                 }
             </div>
