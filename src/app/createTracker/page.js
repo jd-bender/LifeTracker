@@ -5,6 +5,7 @@ import { addDataWithoutId } from "../../firebase/firestore/addData";
 import Toast from "../../ui/Toast";
 import RouteConcealer from "../../ui/RouteConcealer";
 import BackButton from "../../ui/BackButton";
+import { blueButton } from "../../ui/styles";
 
 const CreateTrackerPage = () => {
     const [name, setName] = useState("");
