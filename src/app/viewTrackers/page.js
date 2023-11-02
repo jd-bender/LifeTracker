@@ -1,10 +1,8 @@
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { getDataFromCollection } from "../../firebase/firestore/getData";
 
-export default async function ViewTrackers() {
+const ViewTrackersPage = async () => {
     const trackers = await getDataFromCollection("trackers");
-    console.log("trackers:");
-    console.log(trackers);
 
     const trackerListItems = trackers.data.map((tracker) =>
         <ListItem key={tracker.id}>
@@ -22,3 +20,5 @@ export default async function ViewTrackers() {
         </span>
     );
 };
+
+export default ViewTrackersPage;

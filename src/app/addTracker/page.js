@@ -1,20 +1,19 @@
 "use client";
 import { useState } from "react";
 import { TextField, CircularProgress } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { addDataWithoutId } from "../../firebase/firestore/addData.js";
-import Toast from "../../ui/Toast.js";
-import { blueButton, bottomRightAbsolute } from "../../ui/styles.js";
+import Link from "next/link";
+import { addDataWithoutId } from "../../firebase/firestore/addData";
+import Toast from "../../ui/Toast";
+import RouteConcealer from "../../ui/RouteConcealer";
+import { blueButton, bottomRightAbsolute } from "../../ui/styles";
 
-export default function AddTracker() {
+const AddTrackerPage = () => {
     const [name, setName] = useState("");
     const [nameError, setNameError] = useState(false);
     const [submittingTracker, setSubmittingTracker] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastOpen, setToastOpen] = useState(false);
     const [toastSeverity, setToastSeverity] = useState("");
-
-    const router = useRouter();
 
     const resetTrackerForm = () => {
         setName("");
@@ -59,12 +58,8 @@ export default function AddTracker() {
         setToastOpen(false);
     };
 
-    const goToHomePage = () => {
-        router.push("/");
-    };
-
     return (
-        <span className="flex items-center">
+        <RouteConcealer isProtected={true} className="flex items-center">
             <TextField 
                 label="Tracker Name" 
                 sx={{width: '20rem'}} 
@@ -80,11 +75,13 @@ export default function AddTracker() {
                     :
                     <>
                         <button className={`${blueButton} ml-4`} onClick={submitTracker}>Submit</button>
-                        <button className={`${blueButton} ${bottomRightAbsolute}`} onClick={goToHomePage}>Back</button>
+                        <Link href="/"><button className={`${blueButton} ${bottomRightAbsolute}`}>Back</button></Link>
                     </>
             }
             
             <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} handleClose={resetToast} />
-        </span>
+        </RouteConcealer>
     );
-}
+};
+
+export default AddTrackerPage;
