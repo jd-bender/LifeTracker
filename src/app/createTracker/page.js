@@ -10,8 +10,9 @@ import { blueButton } from "../../ui/styles";
 const CreateTrackerPage = () => {
     const [name, setName] = useState("");
     const [nameError, setNameError] = useState(false);
-    const [selectedTaskType, setSelectedTaskType] = useState("");
-    const [selectedTaskTypeHelpText, setSelectedTaskTypeHelpText] = useState("");
+    const [selectedTrackerType, setSelectedTrackerType] = useState("");
+    const [selectedTrackerTypeHelpText, setSelectedTrackerTypeHelpText] = useState("");
+    const [trackerTypeError, setTrackerTypeError] = useState(false);
     const [submittingTracker, setSubmittingTracker] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastOpen, setToastOpen] = useState(false);
@@ -19,7 +20,8 @@ const CreateTrackerPage = () => {
 
     const resetTrackerForm = () => {
         setName("");
-        setNameError(false);
+        setSelectedTrackerType("");
+        setSelectedTrackerTypeHelpText("");
     };
 
     const popToastMessage = (type, text) => {
@@ -31,26 +33,32 @@ const CreateTrackerPage = () => {
     const submitTracker = async () => {
         resetTrackerForm();
 
-        if (name.length === 0) {
+        if (!name.length) {
             setNameError(true);
             popToastMessage("error", "Must enter a name.");
             return;
+        } else {
+            setNameError(false);
         }
 
-        if (nameError) {
+        if (!selectedTrackerType.length) {
+            setTrackerTypeError(true);
+            popToastMessage("error", "Must select a tracker type.");
             return;
         } else {
-            setSubmittingTracker(true);
-            const {result, error} = await addDataWithoutId("trackers", {name});
-            setSubmittingTracker(false);
+            setTrackerTypeError(false);
+        }
 
-            if (error) {
-                popToastMessage("error", "Something went wrong.");
-                console.error(error);
-            } else {
-                popToastMessage("success", "Tracker created successfully!");
-                resetTrackerForm();
-            }
+        setSubmittingTracker(true);
+        const {result, error} = await addDataWithoutId("trackers", {name, type: selectedTrackerType});
+        setSubmittingTracker(false);
+
+        if (error) {
+            popToastMessage("error", "Something went wrong.");
+            console.error(error);
+        } else {
+            popToastMessage("success", "Tracker created successfully!");
+            resetTrackerForm();
         }
     };
 
@@ -60,13 +68,13 @@ const CreateTrackerPage = () => {
         setToastOpen(false);
     };
 
-    const selectedTaskTypeChanged = (event) => {
-        const taskType = event.target.value;
-        setSelectedTaskType(taskType);
+    const selectedTrackerTypeChanged = (event) => {
+        const trackerType = event.target.value;
+        setSelectedTrackerType(trackerType);
 
         let helpText = "";
 
-        switch (taskType) {
+        switch (trackerType) {
             case "count":
                 helpText = "Count trackers are for tallying numbers.";
                 break;
@@ -76,9 +84,12 @@ const CreateTrackerPage = () => {
             case "money":
                 helpText = "Money trackers are for tracking financial values.";
                 break;
+            case "misc":
+                helpText = "Misc trackers are for tracking anything else!";
+                break;
         }
 
-        setSelectedTaskTypeHelpText(helpText);
+        setSelectedTrackerTypeHelpText(helpText);
     };
 
     return (
@@ -94,16 +105,17 @@ const CreateTrackerPage = () => {
                     variant="outlined" 
                 />
 
-                <FormControl>
+                <FormControl error={trackerTypeError}>
                     <FormLabel>Tracker Type</FormLabel>
-                    <RadioGroup row value={selectedTaskType} onChange={selectedTaskTypeChanged}>
+                    <RadioGroup row value={selectedTrackerType} onChange={selectedTrackerTypeChanged}>
                         <FormControlLabel value="count" control={<Radio />} label="Count Tracker" />
                         <FormControlLabel value="time" control={<Radio />} label="Time Tracker" />
                         <FormControlLabel value="money" control={<Radio />} label="Money Tracker" />
+                        <FormControlLabel value="misc" control={<Radio />} label="Misc Tracker" />
                     </RadioGroup>
                 </FormControl>
 
-                <p>{selectedTaskTypeHelpText}</p>
+                <p>{selectedTrackerTypeHelpText}</p>
 
                 {
                     submittingTracker ?
