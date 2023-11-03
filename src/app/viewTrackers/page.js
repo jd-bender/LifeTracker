@@ -2,15 +2,16 @@ import Link from "next/link";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { getDataFromCollection } from "../../firebase/firestore/getData";
 import BackButton from "../../ui/BackButton";
+import { blueButton } from "../../ui/styles";
 
 const ViewTrackersPage = async () => {
     const trackers = await getDataFromCollection("trackers");
 
     const trackerListItems = trackers.data.map((tracker) =>
         <ListItem key={tracker.id}>
-            <Link href={`/trackers/${tracker.id}`}>
+            <Link href={`/trackers/${tracker.id}`}  className={`${blueButton} w-48`}>
                 <ListItemButton>
-                    <ListItemText primary={tracker.name} />
+                    <ListItemText className="text-center" primary={tracker.name} />
                 </ListItemButton>
             </Link>
         </ListItem>
@@ -18,7 +19,7 @@ const ViewTrackersPage = async () => {
     
     return (
         <span className="flex">
-            <List>
+            <List className="h-96 overflow-y-scroll">
                 {trackerListItems}
             </List>
 

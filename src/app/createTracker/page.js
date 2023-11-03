@@ -68,13 +68,13 @@ const CreateTrackerPage = () => {
 
         switch (taskType) {
             case "count":
-                helpText = "Count trackers are for tracking counts of things or events, like number of water bottles drank or miles walked.";
+                helpText = "Count trackers are for tallying numbers.";
                 break;
             case "time":
-                helpText = "Time trackers are for tracking how much time was given to something.";
+                helpText = "Time trackers are for tracking amount of time spent on something.";
                 break;
-            case "task":
-                helpText = "Task trackers are for tracking repeat things that need to get done. It is either done, or it is not.";
+            case "money":
+                helpText = "Money trackers are for tracking financial values.";
                 break;
         }
 
@@ -99,7 +99,7 @@ const CreateTrackerPage = () => {
                     <RadioGroup row value={selectedTaskType} onChange={selectedTaskTypeChanged}>
                         <FormControlLabel value="count" control={<Radio />} label="Count Tracker" />
                         <FormControlLabel value="time" control={<Radio />} label="Time Tracker" />
-                        <FormControlLabel value="task" control={<Radio />} label="Task Tracker" />
+                        <FormControlLabel value="money" control={<Radio />} label="Money Tracker" />
                     </RadioGroup>
                 </FormControl>
 
