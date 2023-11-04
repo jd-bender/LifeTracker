@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { TextField, CircularProgress, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Typography } from "@mui/material";
+import { useAuthContext } from "../../context/AuthContext";
 import { addDataWithoutId } from "../../firebase/firestore/addData";
 import Toast from "../../ui/Toast";
 import RouteConcealer from "../../ui/RouteConcealer";
@@ -8,6 +9,8 @@ import BackButton from "../../ui/BackButton";
 import { blueButton } from "../../ui/styles";
 
 const CreateTrackerPage = () => {
+    const { user } = useAuthContext();
+
     const [name, setName] = useState("");
     const [nameError, setNameError] = useState(false);
     const [selectedTrackerType, setSelectedTrackerType] = useState("");
@@ -50,7 +53,7 @@ const CreateTrackerPage = () => {
         }
 
         setSubmittingTracker(true);
-        const {result, error} = await addDataWithoutId("trackers", {name, type: selectedTrackerType});
+        const {result, error} = await addDataWithoutId(`users/${user.uid}/trackers`, {name, type: selectedTrackerType});
         setSubmittingTracker(false);
 
         if (error) {
