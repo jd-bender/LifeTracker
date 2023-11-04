@@ -5,7 +5,7 @@ const TrackerPage = ({ params }) => {
         <>
             <p>page for tracker {params.trackerId}</p>
 
-            <BackButton backLocation="viewTrackers" />
+            <BackButton backLocation="trackers" />
         </>
     );
 };

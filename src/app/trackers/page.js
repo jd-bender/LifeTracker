@@ -4,7 +4,7 @@ import { getDataFromCollection } from "../../firebase/firestore/getData";
 import BackButton from "../../ui/BackButton";
 import { blueButton } from "../../ui/styles";
 
-const ViewTrackersPage = async () => {
+const TrackersPage = async () => {
     const trackers = await getDataFromCollection("trackers");
 
     const trackerListItems = trackers.data.map((tracker) =>
@@ -28,4 +28,4 @@ const ViewTrackersPage = async () => {
     );
 };
 
-export default ViewTrackersPage;
+export default TrackersPage;
