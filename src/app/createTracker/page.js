@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { TextField, CircularProgress, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Typography } from "@mui/material";
 import { useAuthContext } from "../../context/AuthContext";
-import { addDataWithoutId } from "../../firebase/firestore/addData";
+import { addDocumentWithoutId } from "../../firebase/firestore/addData";
 import Toast from "../../ui/Toast";
 import RouteConcealer from "../../ui/RouteConcealer";
 import BackButton from "../../ui/BackButton";
@@ -18,8 +18,8 @@ const CreateTrackerPage = () => {
     const [trackerTypeError, setTrackerTypeError] = useState(false);
     const [submittingTracker, setSubmittingTracker] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
-    const [toastOpen, setToastOpen] = useState(false);
     const [toastSeverity, setToastSeverity] = useState("");
+    const [toastOpen, setToastOpen] = useState(false);
 
     const resetTrackerForm = () => {
         setName("");
@@ -53,7 +53,7 @@ const CreateTrackerPage = () => {
         }
 
         setSubmittingTracker(true);
-        const {result, error} = await addDataWithoutId(`users/${user.uid}/trackers`, {name, type: selectedTrackerType});
+        const {result, error} = await addDocumentWithoutId(`users/${user.uid}/trackers`, {name, type: selectedTrackerType});
         setSubmittingTracker(false);
 
         if (error) {
@@ -63,12 +63,6 @@ const CreateTrackerPage = () => {
             popToastMessage("success", "Tracker created successfully!");
             resetTrackerForm();
         }
-    };
-
-    const resetToast = () => {
-        setToastMessage("");
-        setToastSeverity("");
-        setToastOpen(false);
     };
 
     const selectedTrackerTypeChanged = (event) => {
@@ -131,7 +125,7 @@ const CreateTrackerPage = () => {
                 }
             </div>
 
-            <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} handleClose={resetToast} />
+            <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} />
         </RouteConcealer>
     );
 };

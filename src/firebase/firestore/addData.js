@@ -3,7 +3,7 @@ import { getFirestore, collection as getCollection, addDoc, setDoc, doc } from "
 
 const db = getFirestore(firebase_app);
 
-export async function addDataWithoutId(collection, data) {
+export async function addDocumentWithoutId(collection, data) {
     let result = null;
     let error = null;
 
@@ -16,7 +16,7 @@ export async function addDataWithoutId(collection, data) {
     }
 };
 
-export async function addDataWithId(collection, id, data) {
+export async function addDocumentWithId(collection, id, data) {
     let result = null;
     let error = null;
 
