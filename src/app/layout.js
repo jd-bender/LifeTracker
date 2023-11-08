@@ -1,14 +1,14 @@
 import '../globals.css';
-import { AuthContextProvider } from '../context/AuthContext';
+import Providers from '../context/Providers';
 
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className="bg-teal-300">
                 <span className="grid h-screen place-items-center">
-                    <AuthContextProvider>
+                    <Providers>
                         {children}
-                    </AuthContextProvider>
+                    </Providers>
                 </span>
             </body>
         </html>
