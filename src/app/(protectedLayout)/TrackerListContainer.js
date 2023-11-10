@@ -10,7 +10,7 @@ const TrackerListContainer = (props) => {
         <>
             {
                 props.trackers.length > 0 &&
-                    <span className={whiteBox}>
+                    <span className={`${whiteBox} shadow-xl`}>
                         <Typography variant="h6" component="div">{props.type} Trackers</Typography>
 
                         <List className="h-96 overflow-y-auto">

@@ -4,7 +4,6 @@ import { useTrackerContext } from "../../../../context/TrackerContext";
 import BackButton from "../../../../ui/BackButton";
 import { blueButton } from "../../../../ui/styles";
 import Link from "next/link";
-import DialogFrame from "../../../../ui/DialogFrame";
 
 const TrackerPage = ({ params }) => {
     const [trackerName, setTrackerName] = useState("");
@@ -32,11 +31,7 @@ const TrackerPage = ({ params }) => {
                 <button className={blueButton} onClick={openEditTrackerDialog}>Edit Name</button>
             </span>
 
-            <BackButton backLocation="trackers" />
-
-            <DialogFrame title="Edit Tracker Name">
-
-            </DialogFrame>
+            <BackButton />
         </>
     );
 };
