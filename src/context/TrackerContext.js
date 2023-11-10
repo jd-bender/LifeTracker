@@ -12,10 +12,12 @@ export const TrackerContextProvider = ({ children }) => {
     const {user} = useAuthContext();
 
     useEffect(() => {
-        (async () => {        
-            const trackersData = await getDataFromCollection(`users/${user.uid}/trackers`);
-            setTrackers(trackersData.data);
-        })();
+        if (user) {
+            (async () => {        
+                const trackersData = await getDataFromCollection(`users/${user.uid}/trackers`);
+                setTrackers(trackersData.data);
+            })();
+        }
     }, []);
 
     return (
