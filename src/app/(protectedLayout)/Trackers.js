@@ -1,31 +1,54 @@
 "use client";
-import { whiteBox } from "../../ui/styles";
-import { Typography } from "@mui/material";
+import { useState, useEffect } from "react";
 import { useTrackerContext } from "../../context/TrackerContext";
-import Link from "next/link";
-import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import { blueButton } from "../../ui/styles";
+import TrackerListContainer from "./TrackerListContainer";
 
 const Trackers = () => {
+    const [countTrackers, setCountTrackers] = useState([]);
+    const [timeTrackers, setTimeTrackers] = useState([]);
+    const [moneyTrackers, setMoneyTrackers] = useState([]);
+    const [miscTrackers, setMiscTrackers] = useState([]);
+    const [atLeastOneTracker, setAtLeastOneTracker] = useState(false);
+
     const { trackers } = useTrackerContext();
 
-    return (
-        <span className={whiteBox}>
-            <Typography variant="h6" component="div">Trackers</Typography>
+    useEffect(() => {
+        trackers.forEach((tracker) => {
+            switch (tracker.type) {
+                case "count":
+                    setCountTrackers([...countTrackers, tracker]);
+                    setAtLeastOneTracker(true);
+                    break;
+                case "time":
+                    setTimeTrackers([...timeTrackers, tracker]);
+                    setAtLeastOneTracker(true);
+                    break;
+                case "money":
+                    setMoneyTrackers([...moneyTrackers, tracker]);
+                    setAtLeastOneTracker(true);
+                    break;
+                case "misc":
+                    setMiscTrackers([...miscTrackers, tracker]);
+                    setAtLeastOneTracker(true);
+                    break;
+            }
+        });
+    }, [trackers]);
 
-            <List className="h-96 overflow-y-auto">
-                {
-                    trackers.map((tracker) =>
-                        <ListItem key={tracker.id}>
-                            <Link href={`/trackers/${tracker.id}`} className={`${blueButton} w-48`}>
-                                <ListItemButton>
-                                    <ListItemText className="text-center" primary={tracker.name} />
-                                </ListItemButton>
-                            </Link>
-                        </ListItem>
-                    )
-                }
-            </List>
+    return (
+        <span className="flex space-x-4">
+            {
+                atLeastOneTracker ?
+                    <>
+                        <TrackerListContainer type="Count" trackers={countTrackers} />
+                        <TrackerListContainer type="Time" trackers={timeTrackers} />
+                        <TrackerListContainer type="Money" trackers={moneyTrackers} />
+                        <TrackerListContainer type="Misc" trackers={miscTrackers} />
+                    </>
+                    :
+                    <p>No trackers yet, how about you create one?</p>
+            }
+            
         </span>
     );
 };
