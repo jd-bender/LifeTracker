@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
-import BackButton from "../../../../ui/BackButton";
-import { useAuthContext } from "../../../../context/AuthContext";
-import { getDataFromCollection } from "../../../../firebase/firestore/getData";
-import { blueButton } from "../../../../ui/styles";
+import BackButton from "../../../../../ui/BackButton";
+import { useAuthContext } from "../../../../../context/AuthContext";
+import { getDataFromCollection } from "../../../../../firebase/firestore/getData";
+import { blueButton } from "../../../../../ui/styles";
 import Link from "next/link";
 
 const EntriesPage = ({ params }) => {

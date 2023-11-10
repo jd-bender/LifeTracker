@@ -1,6 +1,6 @@
 "use client";
-import RouteConcealer from "../ui/RouteConcealer";
-import signOutFromApp from "../firebase/auth/signOut";
+import RouteConcealer from "../../ui/RouteConcealer";
+import signOutFromApp from "../../firebase/auth/signOut";
 import Link from "next/link";
 
 const HomePage = () => (

@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 import { TextField, CircularProgress, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Typography } from "@mui/material";
-import { useAuthContext } from "../../context/AuthContext";
-import { addDocumentWithoutId } from "../../firebase/firestore/addData";
-import Toast from "../../ui/Toast";
-import RouteConcealer from "../../ui/RouteConcealer";
-import BackButton from "../../ui/BackButton";
-import { blueButton } from "../../ui/styles";
+import { useAuthContext } from "../../../context/AuthContext";
+import { addDocumentWithoutId } from "../../../firebase/firestore/addData";
+import Toast from "../../../ui/Toast";
+import RouteConcealer from "../../../ui/RouteConcealer";
+import BackButton from "../../../ui/BackButton";
+import { blueButton } from "../../../ui/styles";
 
 const CreateTrackerPage = () => {
     const { user } = useAuthContext();

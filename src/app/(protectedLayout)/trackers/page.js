@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
 
-import BackButton from "../../ui/BackButton";
-import RouteConcealer from "../../ui/RouteConcealer";
-import { useTrackerContext } from "../../context/TrackerContext";
-import { blueButton } from "../../ui/styles";
+import BackButton from "../../../ui/BackButton";
+import RouteConcealer from "../../../ui/RouteConcealer";
+import { useTrackerContext } from "../../../context/TrackerContext";
+import { blueButton } from "../../../ui/styles";
 
 const TrackersPage = () => {
     const { trackers } = useTrackerContext();

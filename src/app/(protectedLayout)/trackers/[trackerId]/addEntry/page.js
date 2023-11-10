@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 import { TextField } from "@mui/material";
-import { useAuthContext } from "../../../../context/AuthContext";
-import { addDocumentWithoutId } from "../../../../firebase/firestore/addData";
-import BackButton from "../../../../ui/BackButton";
-import { blueButton } from "../../../../ui/styles";
+import { useAuthContext } from "../../../../../context/AuthContext";
+import { addDocumentWithoutId } from "../../../../../firebase/firestore/addData";
+import BackButton from "../../../../../ui/BackButton";
+import { blueButton } from "../../../../../ui/styles";
 
 const AddEntryPage = ({ params }) => {
     const [entryContents, setEntryContents] = useState("");

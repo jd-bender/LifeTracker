@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import signUp from "../../firebase/auth/signUp";
+import signUp from "../../../firebase/auth/signUp";
 import { useRouter } from "next/navigation";
 import { Typography, TextField, Button } from '@mui/material';
-import RouteConcealer from "../../ui/RouteConcealer";
-import Toast from "../../ui/Toast";
+import RouteConcealer from "../../../ui/RouteConcealer";
+import Toast from "../../../ui/Toast";
 import Link from 'next/link';
 
 const SignUpPage = () => {
