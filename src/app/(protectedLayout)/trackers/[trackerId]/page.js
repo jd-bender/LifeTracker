@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { useTrackerContext } from "../../../../context/TrackerContext";
 import BackButton from "../../../../ui/BackButton";
 import { blueButton } from "../../../../ui/styles";
-import Link from "next/link";
 
 const TrackerPage = ({ params }) => {
     const [trackerName, setTrackerName] = useState("");

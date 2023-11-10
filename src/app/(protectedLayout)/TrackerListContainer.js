@@ -1,8 +1,7 @@
 "use client";
-import { whiteBox } from "../../ui/styles";
-import { Typography } from "@mui/material";
 import Link from "next/link";
-import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { whiteBox } from "../../ui/styles";
 import { blueButton } from "../../ui/styles";
 
 const TrackerListContainer = (props) => {

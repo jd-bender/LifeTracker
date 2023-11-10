@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
 import { Typography, TextField, Button, CircularProgress } from '@mui/material';
-import RouteConcealer from "../../../ui/RouteConcealer";
-import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import signIn from "../../../firebase/auth/signIn";
+import Link from 'next/link';
 import { whiteBox } from "../../../ui/styles";
+import RouteConcealer from "../../../ui/RouteConcealer";
+import signIn from "../../../firebase/auth/signIn";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");

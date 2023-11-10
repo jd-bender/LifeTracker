@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import { AccountCircle } from "@mui/icons-material";
-import signOutFromApp from "../../firebase/auth/signOut";
 import Link from "next/link";
+import signOutFromApp from "../../firebase/auth/signOut";
 
 const HeaderBar = () => {
     const [anchorEl, setAnchorEl] = useState(null);

@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { useAuthContext } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function RouteConcealer({ isProtected, className, children }) {
     const { user } = useAuthContext();
