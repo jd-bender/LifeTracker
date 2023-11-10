@@ -32,10 +32,13 @@ const CreateTrackerPage = () => {
         setToastMessage(text);
         setToastOpen(true);
     };
+
+    const handleToastClose = () => {
+        setToastMessage("");
+        setToastOpen(false);
+    };
     
     const submitTracker = async () => {
-        resetTrackerForm();
-
         if (!name.length) {
             setNameError(true);
             popToastMessage("error", "Must enter a name.");
@@ -125,7 +128,7 @@ const CreateTrackerPage = () => {
                 }
             </div>
 
-            <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} />
+            <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} handleClose={handleToastClose} />
         </RouteConcealer>
     );
 };

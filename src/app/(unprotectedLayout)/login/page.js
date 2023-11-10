@@ -5,6 +5,7 @@ import RouteConcealer from "../../../ui/RouteConcealer";
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import signIn from "../../../firebase/auth/signIn";
+import { whiteBox } from "../../../ui/styles";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -28,7 +29,7 @@ const LoginPage = () => {
     };
 
     return (
-        <RouteConcealer isProtected={false} className='bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center'>
+        <RouteConcealer isProtected={false} className={whiteBox}>
             <Typography variant="h4" className="mb-4">Life Tracker</Typography>
             
             <span className="mb-4">

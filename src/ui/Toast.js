@@ -20,24 +20,19 @@ const Toast = (props) => {
         return ["success", "error"].includes(severity);
     };
 
-    const handleClose = () => {
-        setMessage("");
-        setSeverity("");
-        setAutoHideDuration(defaultAutoHideDuration);
-        setOpen(false);
-    };
-
     useEffect(() => {
         if (props.open) {
             if (props.message.length && validateSeverity(props.severity)) {
                 popToastMessage(props.severity, props.message);
             }
+        } else {
+            setOpen(false);
         }
     }, [props.open]);
     
     return (
-        <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={handleClose}>
-            <Alert onClose={handleClose} severity={severity} sx={{ width: '100%' }} variant="filled">
+        <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={props.handleClose}>
+            <Alert onClose={props.handleClose} severity={severity} sx={{ width: '100%' }} variant="filled">
                 {message}
             </Alert>
         </Snackbar>
