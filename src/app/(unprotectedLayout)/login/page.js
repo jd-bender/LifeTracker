@@ -13,8 +13,7 @@ const LoginPage = () => {
 
     const router = useRouter();
 
-    const submitLogin = async (event) => {
-        event.preventDefault()
+    const submitLogin = async () => {
         setLoggingIn(true);
 
         const { result, error } = await signIn(email, password);
@@ -33,11 +32,29 @@ const LoginPage = () => {
             <Typography variant="h4" className="mb-4">Life Tracker</Typography>
             
             <span className="mb-4">
-                <TextField label="Email" sx={{width: '20rem'}} disabled={loggingIn} onChange={(e) => setEmail(e.target.value)} variant="outlined" />
+                <TextField 
+                    label="Email" 
+                    sx={{width: '20rem'}} 
+                    disabled={loggingIn} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    variant="outlined" 
+                />
             </span>
             
             <span className="mb-4">
-                <TextField label="Password" type="password" sx={{width: '20rem'}} disabled={loggingIn} onChange={(e) => setPassword(e.target.value)} variant="outlined" />
+                <TextField 
+                    label="Password" 
+                    type="password" 
+                    sx={{width: '20rem'}} 
+                    disabled={loggingIn} 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                           submitLogin();
+                        }
+                    }}
+                    variant="outlined"
+                />
             </span>
 
             {
