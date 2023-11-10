@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import { AccountCircle } from "@mui/icons-material";
 import signOutFromApp from "../../firebase/auth/signOut";
+import Link from "next/link";
 
 const HeaderBar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -18,7 +19,9 @@ const HeaderBar = () => {
     return (
         <AppBar>
             <Toolbar>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Life Tracker</Typography>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Link href="/">Life Tracker</Link>
+                </Typography>
 
                 <span>
                     <IconButton size="large" color="inherit" onClick={handleMenu}>

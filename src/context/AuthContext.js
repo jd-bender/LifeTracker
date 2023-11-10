@@ -23,7 +23,14 @@ export const AuthContextProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ user }}>
-            {loading ? <CircularProgress /> : children}
+            {
+                loading ?
+                    <span className="grid h-screen place-items-center">
+                        <CircularProgress /> 
+                    </span>
+                    : 
+                    children
+            }
         </AuthContext.Provider>
     );
 };
