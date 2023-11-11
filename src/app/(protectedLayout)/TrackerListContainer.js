@@ -7,7 +7,7 @@ const TrackerListContainer = (props) => {
         <>
             {
                 props.trackers.length > 0 &&
-                    <span className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center shadow-xl">
+                    <span className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center shadow-xl pb-8">
                         <Typography variant="h6" component="div">{props.type} Trackers</Typography>
 
                         <List className="h-96 overflow-y-auto">

@@ -13,26 +13,36 @@ const Trackers = () => {
     const { trackers } = useTrackerContext();
 
     useEffect(() => {
+        const tempCountTrackers = [];
+        const tempTimeTrackers = [];
+        const tempMoneyTrackers = [];
+        const tempMiscTrackers = [];
+
         trackers.forEach((tracker) => {
             switch (tracker.type) {
                 case "count":
-                    setCountTrackers([...countTrackers, tracker]);
+                    tempCountTrackers.push(tracker);
                     setAtLeastOneTracker(true);
                     break;
                 case "time":
-                    setTimeTrackers([...timeTrackers, tracker]);
+                    tempTimeTrackers.push(tracker);
                     setAtLeastOneTracker(true);
                     break;
                 case "money":
-                    setMoneyTrackers([...moneyTrackers, tracker]);
+                    tempMoneyTrackers.push(tracker);
                     setAtLeastOneTracker(true);
                     break;
                 case "misc":
-                    setMiscTrackers([...miscTrackers, tracker]);
+                    tempMiscTrackers.push(tracker);
                     setAtLeastOneTracker(true);
                     break;
             }
         });
+
+        setCountTrackers(tempCountTrackers);
+        setTimeTrackers(tempTimeTrackers);
+        setMoneyTrackers(tempMoneyTrackers);
+        setMiscTrackers(tempMiscTrackers);
     }, [trackers]);
 
     return (
@@ -48,7 +58,6 @@ const Trackers = () => {
                     :
                     <p>No trackers yet, how about you create one?</p>
             }
-            
         </span>
     );
 };
