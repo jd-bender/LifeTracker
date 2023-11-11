@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Typography, TextField, Button, CircularProgress } from '@mui/material';
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
-import { whiteBox } from "../../../ui/styles";
 import RouteConcealer from "../../../ui/RouteConcealer";
 import signIn from "../../../firebase/auth/signIn";
 
@@ -29,7 +28,7 @@ const LoginPage = () => {
     };
 
     return (
-        <RouteConcealer isProtected={false} className={whiteBox}>
+        <RouteConcealer isProtected={false} className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center">
             <Typography variant="h4" className="mb-4">Life Tracker</Typography>
             
             <span className="mb-4">

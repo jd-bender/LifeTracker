@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { blueButton, bottomRightAbsolute } from "./styles";
 
 const BackButton = (props) => (
     <Link href={`/${props.backLocation || ""}`}>
-        <button className={`${blueButton} ${bottomRightAbsolute}`}>Back</button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full absolute bottom-0 right-0 mb-16 mr-16">Back</button>
     </Link>
 );
 

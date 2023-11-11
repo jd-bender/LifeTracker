@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTrackerContext } from "../../../../context/TrackerContext";
 import BackButton from "../../../../ui/BackButton";
-import { blueButton } from "../../../../ui/styles";
 
 const TrackerPage = ({ params }) => {
     const [trackerName, setTrackerName] = useState("");
@@ -26,9 +25,13 @@ const TrackerPage = ({ params }) => {
             <p>{trackerName} Tracker</p>
 
             <span className="flex">
-                <Link href={`/trackers/${params.trackerId}/entries`}><button className={blueButton}>View Entries</button></Link>
-                <Link href={`/trackers/${params.trackerId}/addEntry`}><button className={blueButton}>Add Entry</button></Link>
-                <button className={blueButton} onClick={openEditTrackerDialog}>Edit Name</button>
+                <Link href={`/trackers/${params.trackerId}/entries`}>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">View Entries</button>
+                </Link>
+                <Link href={`/trackers/${params.trackerId}/addEntry`}>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Add Entry</button>
+                </Link>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={openEditTrackerDialog}>Edit Name</button>
             </span>
 
             <BackButton />

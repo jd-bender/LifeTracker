@@ -4,7 +4,6 @@ import { TextField } from "@mui/material";
 import { useAuthContext } from "../../../../../context/AuthContext";
 import { addDocumentWithoutId } from "../../../../../firebase/firestore/addData";
 import BackButton from "../../../../../ui/BackButton";
-import { blueButton } from "../../../../../ui/styles";
 
 const AddEntryPage = ({ params }) => {
     const [entryContents, setEntryContents] = useState("");
@@ -17,7 +16,7 @@ const AddEntryPage = ({ params }) => {
     return (
         <>
             <TextField label="Entry Contents" sx={{width: '20rem'}} onChange={(e) => setEntryContents(e.target.value)} variant="outlined" />
-            <button onClick={saveEntry} className={blueButton}>Save</button>
+            <button onClick={saveEntry} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Save</button>
             <BackButton backLocation={`trackers/${params.trackerId}`} />
         </>
     );

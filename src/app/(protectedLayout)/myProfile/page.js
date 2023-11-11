@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Typography, TextField, Button, CircularProgress } from '@mui/material';
-import Link from 'next/link';
+import { Typography, TextField } from '@mui/material';
 import RouteConcealer from "../../../ui/RouteConcealer";
 
 const MyProfilePage = () => {

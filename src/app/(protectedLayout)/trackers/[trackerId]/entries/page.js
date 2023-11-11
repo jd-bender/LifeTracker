@@ -5,7 +5,6 @@ import Link from "next/link";
 import BackButton from "../../../../../ui/BackButton";
 import { useAuthContext } from "../../../../../context/AuthContext";
 import { getDataFromCollection } from "../../../../../firebase/firestore/getData";
-import { blueButton } from "../../../../../ui/styles";
 
 const EntriesPage = ({ params }) => {
     const [entries, setEntries] = useState([]);
@@ -24,7 +23,7 @@ const EntriesPage = ({ params }) => {
                 {
                     entries.map((entry) =>
                         <ListItem key={entry.id}>
-                            <Link href={`/trackers/${params.trackerId}/entries/${entry.id}`} className={`${blueButton} w-48`}>
+                            <Link href={`/trackers/${params.trackerId}/entries/${entry.id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-48">
                                 <ListItemButton>
                                     <ListItemText className="text-center" primary={entry.contents} />
                                 </ListItemButton>

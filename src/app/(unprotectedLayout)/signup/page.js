@@ -6,7 +6,6 @@ import Link from 'next/link';
 import signUp from "../../../firebase/auth/signUp";
 import RouteConcealer from "../../../ui/RouteConcealer";
 import Toast from "../../../ui/Toast";
-import { whiteBox } from "../../../ui/styles";
 
 const SignUpPage = () => {
     const [firstName, setFirstName] = useState("");
@@ -96,7 +95,7 @@ const SignUpPage = () => {
     };
     
     return (
-        <RouteConcealer isProtected={false} className={whiteBox}>
+        <RouteConcealer isProtected={false} className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center">
             <Typography variant="h4" sx={{marginBottom:'.5em'}}>Sign Up</Typography>
             <span className="mb-4">
                 <TextField label="First Name" sx={{width: '20rem'}} error={firstNameError} onChange={(e) => setFirstName(e.target.value)} variant="outlined" />

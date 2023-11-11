@@ -6,7 +6,6 @@ import { addDocumentWithoutId } from "../../../firebase/firestore/addData";
 import Toast from "../../../ui/Toast";
 import RouteConcealer from "../../../ui/RouteConcealer";
 import BackButton from "../../../ui/BackButton";
-import { blueButton } from "../../../ui/styles";
 
 const CreateTrackerPage = () => {
     const { user } = useAuthContext();
@@ -122,7 +121,7 @@ const CreateTrackerPage = () => {
                         <CircularProgress />
                         :
                         <>
-                            <button className={`${blueButton} ml-4`} onClick={submitTracker}>Submit</button>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4" onClick={submitTracker}>Submit</button>
                             <BackButton />
                         </>
                 }
