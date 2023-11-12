@@ -1,4 +1,4 @@
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore";
 import firebase_app from "../config";
 
 const db = getFirestore(firebase_app);
@@ -21,4 +21,9 @@ export async function getDataFromCollection(collectionName) {
     } finally {
         return { data, error };
     }
+};
+
+export async function getUser(userId) {
+    const docSnap = await getDoc(doc(db, "users", userId));
+    return docSnap.data();
 };

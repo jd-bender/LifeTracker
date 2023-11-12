@@ -14,8 +14,8 @@ export const TrackerContextProvider = ({ children }) => {
     useEffect(() => {
         if (user) {
             (async () => {        
-                const trackersData = await getDataFromCollection(`users/${user.uid}/trackers`);
-                setTrackers(trackersData.data);
+                const trackersSnapshot = await getDataFromCollection(`users/${user.uid}/trackers`);
+                setTrackers(trackersSnapshot.data);
             })();
         }
     }, []);

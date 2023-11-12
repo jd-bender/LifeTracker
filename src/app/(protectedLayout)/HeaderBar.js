@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/ma
 import { AccountCircle } from "@mui/icons-material";
 import Link from "next/link";
 import signOutFromApp from "../../firebase/auth/signOut";
+import { useRouter } from "next/navigation";
 
 const HeaderBar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -15,6 +16,8 @@ const HeaderBar = () => {
     const closeMenu = () => {
         setAnchorEl(null);
     };
+
+    const router = useRouter();
 
     return (
         <AppBar>
@@ -42,7 +45,7 @@ const HeaderBar = () => {
                         open={Boolean(anchorEl)}
                         onClose={closeMenu}
                     >
-                        <MenuItem onClick={closeMenu}>My Profile</MenuItem>
+                        <MenuItem onClick={() => router.push("/myProfile")}>My Profile</MenuItem>
                         <MenuItem onClick={() => signOutFromApp()}>Sign Out</MenuItem>
                     </Menu>
                 </span>
