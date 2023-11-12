@@ -5,6 +5,7 @@ import RouteConcealer from "../../../ui/RouteConcealer";
 import { useUserProfileContext } from "../../../context/UserProfileContext";
 import { useAuthContext } from "../../../context/AuthContext";
 import { updateUserData } from "../../../firebase/firestore/updateData";
+import BackButton from "../../../ui/BackButton";
 import Toast from "../../../ui/Toast";
 
 const MyProfilePage = () => {
@@ -95,6 +96,8 @@ const MyProfilePage = () => {
                 inputValueChanged &&
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={saveProfileData}>Save Changes</button>
             }
+
+            <BackButton />
 
             <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} handleClose={handleToastClose} />
         </RouteConcealer>
