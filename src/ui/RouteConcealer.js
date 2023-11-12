@@ -13,7 +13,7 @@ export default function RouteConcealer({ isProtected, className, children }) {
         } else if (!isProtected && user) {
             router.push("/");
         }
-    }, [isProtected, user]);
+    }, [isProtected, user, router]);
 
     return (
         <span className={className || ""}>

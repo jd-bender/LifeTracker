@@ -28,7 +28,7 @@ const Toast = (props) => {
         } else {
             setOpen(false);
         }
-    }, [props.open]);
+    }, [props.open, props.message, props.severity]);
     
     return (
         <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={props.handleClose}>

@@ -12,13 +12,11 @@ export const UserProfileContextProvider = ({ children }) => {
     const {user} = useAuthContext();
 
     useEffect(() => {
-        if (user) {
-            (async () => {        
-                const userSnapshot = await getUser(user.uid);
-                setUserProfileData(userSnapshot.profile);
-            })();
-        }
-    }, []);
+        (async () => {        
+            const userSnapshot = await getUser(user.uid);
+            setUserProfileData(userSnapshot.profile);
+        })();
+    }, [user.uid]);
 
     return (
         <UserProfileContext.Provider value={{ userProfileData }}>

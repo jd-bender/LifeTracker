@@ -14,7 +14,7 @@ const TrackerPage = ({ params }) => {
         if (targetTracker) {
             setTrackerName(targetTracker.name);
         }
-    }, [trackers]);
+    }, [trackers, params.trackerId]);
 
     const openEditTrackerDialog = () => {
 

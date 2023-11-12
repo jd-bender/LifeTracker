@@ -15,7 +15,7 @@ const EntriesPage = ({ params }) => {
             const entriesSnapshot = await getDataFromCollection(`users/${user.uid}/trackers/${params.trackerId}/entries`);
             setEntries(entriesSnapshot.data);
         })();
-    }, []);
+    }, [user.uid, params.trackerId]);
 
     return (
         <>
