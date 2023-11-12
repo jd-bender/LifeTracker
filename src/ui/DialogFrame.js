@@ -1,9 +1,9 @@
 import { Dialog, DialogTitle } from "@mui/material";
 
-const DialogFrame = (props, children) => {
+const DialogFrame = ({handleClose, open, title, children}) => {
     return (
-        <Dialog onClose={props.handleClose} open={props.open}>
-            <DialogTitle>{props.title}</DialogTitle>
+        <Dialog onClose={handleClose} open={open}>
+            <DialogTitle>{title}</DialogTitle>
 
             {children}
         </Dialog>

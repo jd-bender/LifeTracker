@@ -1,8 +1,25 @@
 "use client";
-import Link from "next/link";
-import { List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { useState } from "react";
+import { List, ListItem, Typography, Tooltip, TextField, Button } from "@mui/material";
+import DialogFrame from "../../ui/DialogFrame";
+import {Create as CreateIcon, Clear as ClearIcon} from '@mui/icons-material';
 
 const TrackerListContainer = (props) => {
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [selectedTrackerName, setSelectedTrackerName] = useState("");
+    const [trackerNameConfirmation, setTrackerNameConfirmation] = useState("");
+    const [showConfirmDeleteButton, setShowConfirmDeleteButton] = useState(false);
+
+    const openDeleteConfirmationDialog = (trackerName) => {
+        setSelectedTrackerName(trackerName);
+        setDialogOpen(true);
+    };
+
+    const checkForNameConfirmationMatch = (e) => {
+        setTrackerNameConfirmation(e.target.value);
+        setShowConfirmDeleteButton(e.target.value === selectedTrackerName);
+    };
+
     return (
         <>
             {
@@ -13,18 +30,36 @@ const TrackerListContainer = (props) => {
                         <List className="h-96 overflow-y-auto">
                             {
                                 props.trackers.map((tracker) =>
-                                    <ListItem key={tracker.id}>
-                                        <Link href={`/trackers/${tracker.id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-48">
-                                            <ListItemButton>
-                                                <ListItemText className="text-center" primary={tracker.name} />
-                                            </ListItemButton>
-                                        </Link>
+                                    <ListItem key={tracker.id} className="w-52 justify-between">
+                                        <span>{tracker.name}</span> 
+                                        <span>
+                                            <Tooltip title="Edit" placement="top">
+                                                <CreateIcon fontSize="small" className="cursor-pointer" />
+                                            </Tooltip>
+                                            <Tooltip title="Delete" placement="top">
+                                                <ClearIcon fontSize="small" className="cursor-pointer" onClick={() => openDeleteConfirmationDialog(tracker.name)} />
+                                            </Tooltip>
+                                        </span>
                                     </ListItem>
                                 )
                             }
                         </List>
                     </span>
             }
+
+            <DialogFrame title="Are you sure you want to delete this tracker?" open={dialogOpen}>
+                <span className="mx-auto mb-4">{selectedTrackerName}</span>
+                <span className="mx-auto">Enter the name of the tracker to confirm:</span>
+                <span className="mx-auto my-4">
+                    <TextField size="small" value={trackerNameConfirmation} onChange={(e) => checkForNameConfirmationMatch(e)}/>
+                </span>
+                {
+                    showConfirmDeleteButton &&
+                        <span className="mx-auto mb-4">
+                            <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Confirm</Button>
+                        </span>
+                }
+            </DialogFrame>
         </> 
     );
 };
