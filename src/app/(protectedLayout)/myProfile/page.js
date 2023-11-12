@@ -3,14 +3,22 @@ import { useState, useEffect } from "react";
 import { Typography, TextField } from '@mui/material';
 import RouteConcealer from "../../../ui/RouteConcealer";
 import { useUserProfileContext } from "../../../context/UserProfileContext";
+import { useAuthContext } from "../../../context/AuthContext";
+import { updateUserData } from "../../../firebase/firestore/updateData";
+import Toast from "../../../ui/Toast";
 
 const MyProfilePage = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [inputValueChanged, setInputValueChanged] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastSeverity, setToastSeverity] = useState("");
+    const [toastOpen, setToastOpen] = useState(false);
 
-    const { userProfileData } = useUserProfileContext();
+    let { userProfileData } = useUserProfileContext();
+    
+    const { user } = useAuthContext();
 
     useEffect(() => {
         setFirstName(userProfileData.firstName || "");
@@ -41,6 +49,31 @@ const MyProfilePage = () => {
 
         setInputValueChanged(firstNameChanged || lastNameChanged || emailChanged);
     };
+
+    const saveProfileData = () => {
+        const { result, error } = updateUserData(user.uid, {firstName, lastName, email});
+
+        if (!error) {
+            popToastMessage("success", "Profile details saved successfully.");
+            
+            userProfileData.firstName = firstName;
+            userProfileData.lastName = lastName;
+            userProfileData.email = email;
+            
+            setInputValueChanged(false);
+        }
+    };
+
+    const popToastMessage = (type, text) => {
+        setToastSeverity(type);
+        setToastMessage(text);
+        setToastOpen(true);
+    };
+
+    const handleToastClose = () => {
+        setToastMessage("");
+        setToastOpen(false);
+    };
     
     return (
         <RouteConcealer isProtected={true} className='bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center'>
@@ -60,8 +93,10 @@ const MyProfilePage = () => {
 
             {
                 inputValueChanged &&
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Save Changes</button>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={saveProfileData}>Save Changes</button>
             }
+
+            <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} handleClose={handleToastClose} />
         </RouteConcealer>
     );
 };
