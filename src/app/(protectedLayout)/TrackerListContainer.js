@@ -22,6 +22,8 @@ const TrackerListContainer = (props) => {
 
     const handleClose = () => {
         setDialogOpen(false);
+        setSelectedTrackerName("");
+        setTrackerNameConfirmation("");
     };
 
     return (
