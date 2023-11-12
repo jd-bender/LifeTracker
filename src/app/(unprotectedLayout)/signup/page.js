@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Typography, TextField, Button } from '@mui/material';
+import { Typography, TextField } from '@mui/material';
 import Link from 'next/link';
 import signUp from "../../../firebase/auth/signUp";
 import RouteConcealer from "../../../ui/RouteConcealer";
@@ -117,7 +117,7 @@ const SignUpPage = () => {
                 <TextField label="Confirm Password" type="password" sx={{width: '20rem'}} error={confirmPasswordError} onChange={(e) => setConfirmPassword(e.target.value)} variant="outlined" />
             </span>
 
-            <Button variant="outlined" onClick={submitAccountCreation} sx={{marginBottom:'.5em'}}>Confirm</Button>
+            <button variant="outlined" onClick={submitAccountCreation} sx={{marginBottom:'.5em'}}>Confirm</button>
 
             <Link href="/login"><u>Return to Login</u></Link>
 

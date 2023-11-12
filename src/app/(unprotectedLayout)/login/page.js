@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Typography, TextField, Button, CircularProgress } from '@mui/material';
+import { Typography, TextField, CircularProgress } from '@mui/material';
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import RouteConcealer from "../../../ui/RouteConcealer";
@@ -62,7 +62,7 @@ const LoginPage = () => {
                     <CircularProgress />
                     :
                     <>
-                        <Button variant="outlined" className="mb-4" onClick={submitLogin}>Login</Button>
+                        <button variant="outlined" className="mb-4" onClick={submitLogin}>Login</button>
                         <Link href="/signup"><u>Sign Up</u></Link>
                     </>
             }

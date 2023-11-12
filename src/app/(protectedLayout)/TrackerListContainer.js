@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { List, ListItem, Typography, Tooltip, TextField, Button } from "@mui/material";
+import { List, ListItem, Typography, Tooltip, TextField } from "@mui/material";
 import DialogFrame from "../../ui/DialogFrame";
 import {Create as CreateIcon, Clear as ClearIcon} from '@mui/icons-material';
 
@@ -60,7 +60,7 @@ const TrackerListContainer = (props) => {
                 {
                     showConfirmDeleteButton &&
                         <span className="mx-auto mb-4">
-                            <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Confirm</Button>
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Confirm</button>
                         </span>
                 }
             </DialogFrame>
