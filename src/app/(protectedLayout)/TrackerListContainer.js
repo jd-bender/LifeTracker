@@ -20,6 +20,10 @@ const TrackerListContainer = (props) => {
         setShowConfirmDeleteButton(e.target.value === selectedTrackerName);
     };
 
+    const handleClose = () => {
+        setDialogOpen(false);
+    };
+
     return (
         <>
             {
@@ -47,7 +51,7 @@ const TrackerListContainer = (props) => {
                     </span>
             }
 
-            <DialogFrame title="Are you sure you want to delete this tracker?" open={dialogOpen}>
+            <DialogFrame title="Are you sure you want to delete this tracker?" open={dialogOpen} handleClose={handleClose}>
                 <span className="mx-auto mb-4">{selectedTrackerName}</span>
                 <span className="mx-auto">Enter the name of the tracker to confirm:</span>
                 <span className="mx-auto my-4">
