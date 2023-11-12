@@ -19,6 +19,11 @@ const HeaderBar = () => {
 
     const router = useRouter();
 
+    const navigateToMyProfile = () => {
+        router.push("/myProfile");
+        closeMenu();
+    };
+
     return (
         <AppBar>
             <Toolbar>
@@ -45,7 +50,7 @@ const HeaderBar = () => {
                         open={Boolean(anchorEl)}
                         onClose={closeMenu}
                     >
-                        <MenuItem onClick={() => router.push("/myProfile")}>My Profile</MenuItem>
+                        <MenuItem onClick={navigateToMyProfile}>My Profile</MenuItem>
                         <MenuItem onClick={() => signOutFromApp()}>Sign Out</MenuItem>
                     </Menu>
                 </span>
