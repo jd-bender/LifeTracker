@@ -47,17 +47,22 @@ const Trackers = () => {
 
     return (
         <span className="flex space-x-4">
-            {
-                atLeastOneTracker ?
-                    <>
-                        <TrackerListContainer type="Count" trackers={countTrackers} />
-                        <TrackerListContainer type="Time" trackers={timeTrackers} />
-                        <TrackerListContainer type="Money" trackers={moneyTrackers} />
-                        <TrackerListContainer type="Misc" trackers={miscTrackers} />
-                    </>
-                    :
-                    <p>No trackers yet, how about you create one?</p>
-            }
+            {atLeastOneTracker ? (
+                <>
+                    <TrackerListContainer
+                        type="Count"
+                        trackers={countTrackers}
+                    />
+                    <TrackerListContainer type="Time" trackers={timeTrackers} />
+                    <TrackerListContainer
+                        type="Money"
+                        trackers={moneyTrackers}
+                    />
+                    <TrackerListContainer type="Misc" trackers={miscTrackers} />
+                </>
+            ) : (
+                <p>No trackers yet, how about you create one?</p>
+            )}
         </span>
     );
 };

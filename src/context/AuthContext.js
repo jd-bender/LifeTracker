@@ -1,8 +1,8 @@
 "use client";
-import { useState, createContext, useContext, useEffect } from 'react';
-import { onAuthStateChanged, getAuth } from 'firebase/auth';
-import { CircularProgress } from '@mui/material';
-import firebase_app from '../firebase/config';
+import { useState, createContext, useContext, useEffect } from "react";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { CircularProgress } from "@mui/material";
+import firebase_app from "../firebase/config";
 
 const AuthContext = createContext({});
 
@@ -23,14 +23,13 @@ export const AuthContextProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ user }}>
-            {
-                loading ?
-                    <span className="grid h-screen place-items-center">
-                        <CircularProgress /> 
-                    </span>
-                    : 
-                    children
-            }
+            {loading ? (
+                <span className="grid h-screen place-items-center">
+                    <CircularProgress />
+                </span>
+            ) : (
+                children
+            )}
         </AuthContext.Provider>
     );
 };

@@ -15,9 +15,5 @@ export default function RouteConcealer({ isProtected, className, children }) {
         }
     }, [isProtected, user, router]);
 
-    return (
-        <span className={className || ""}>
-            { children }
-        </span>
-    );
-};
+    return <span className={className || ""}>{children}</span>;
+}

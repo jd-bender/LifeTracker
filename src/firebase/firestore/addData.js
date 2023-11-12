@@ -1,4 +1,10 @@
-import { getFirestore, collection as getCollection, addDoc, setDoc, doc } from "firebase/firestore";
+import {
+    getFirestore,
+    collection as getCollection,
+    addDoc,
+    setDoc,
+    doc,
+} from "firebase/firestore";
 import firebase_app from "../config";
 
 const db = getFirestore(firebase_app);
@@ -14,7 +20,7 @@ export async function addDocumentWithoutId(collection, data) {
     } finally {
         return { result, error };
     }
-};
+}
 
 export async function addDocumentWithId(collection, id, data) {
     let result = null;
@@ -27,4 +33,4 @@ export async function addDocumentWithId(collection, id, data) {
     } finally {
         return { result, error };
     }
-};
+}

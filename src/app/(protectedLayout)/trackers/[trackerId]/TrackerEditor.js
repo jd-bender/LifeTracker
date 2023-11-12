@@ -1,3 +1,1 @@
-const TrackerEditor = () => {
-    
-};
+const TrackerEditor = () => {};

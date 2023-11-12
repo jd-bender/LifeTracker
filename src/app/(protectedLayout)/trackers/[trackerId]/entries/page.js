@@ -8,11 +8,13 @@ import { getDataFromCollection } from "../../../../../firebase/firestore/getData
 
 const EntriesPage = ({ params }) => {
     const [entries, setEntries] = useState([]);
-    const {user} = useAuthContext();
+    const { user } = useAuthContext();
 
     useEffect(() => {
-        (async () => {        
-            const entriesSnapshot = await getDataFromCollection(`users/${user.uid}/trackers/${params.trackerId}/entries`);
+        (async () => {
+            const entriesSnapshot = await getDataFromCollection(
+                `users/${user.uid}/trackers/${params.trackerId}/entries`,
+            );
             setEntries(entriesSnapshot.data);
         })();
     }, [user.uid, params.trackerId]);
@@ -20,17 +22,21 @@ const EntriesPage = ({ params }) => {
     return (
         <>
             <List className="h-96 overflow-y-scroll">
-                {
-                    entries.map((entry) =>
-                        <ListItem key={entry.id}>
-                            <Link href={`/trackers/${params.trackerId}/entries/${entry.id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-48">
-                                <ListItemButton>
-                                    <ListItemText className="text-center" primary={entry.contents} />
-                                </ListItemButton>
-                            </Link>
-                        </ListItem>
-                    )
-                }
+                {entries.map((entry) => (
+                    <ListItem key={entry.id}>
+                        <Link
+                            href={`/trackers/${params.trackerId}/entries/${entry.id}`}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-48"
+                        >
+                            <ListItemButton>
+                                <ListItemText
+                                    className="text-center"
+                                    primary={entry.contents}
+                                />
+                            </ListItemButton>
+                        </Link>
+                    </ListItem>
+                ))}
             </List>
 
             <BackButton backLocation={`trackers/${params.trackerId}`} />

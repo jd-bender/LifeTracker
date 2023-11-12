@@ -8,10 +8,12 @@ export async function updateUserData(userId, profileData) {
     let error = null;
 
     try {
-        result = await updateDoc(doc(db, "users", userId), {profile: profileData});
+        result = await updateDoc(doc(db, "users", userId), {
+            profile: profileData,
+        });
     } catch (e) {
         error = e;
     } finally {
         return { result, error };
     }
-};
+}

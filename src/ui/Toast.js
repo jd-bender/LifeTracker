@@ -6,7 +6,9 @@ const Toast = (props) => {
 
     const [message, setMessage] = useState("");
     const [severity, setSeverity] = useState("success");
-    const [autoHideDuration, setAutoHideDuration] = useState(defaultAutoHideDuration);
+    const [autoHideDuration, setAutoHideDuration] = useState(
+        defaultAutoHideDuration,
+    );
     const [open, setOpen] = useState(false);
 
     const popToastMessage = (type, text, time = defaultAutoHideDuration) => {
@@ -29,10 +31,19 @@ const Toast = (props) => {
             setOpen(false);
         }
     }, [props.open, props.message, props.severity]);
-    
+
     return (
-        <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={props.handleClose}>
-            <Alert onClose={props.handleClose} severity={severity} sx={{ width: '100%' }} variant="filled">
+        <Snackbar
+            open={open}
+            autoHideDuration={autoHideDuration}
+            onClose={props.handleClose}
+        >
+            <Alert
+                onClose={props.handleClose}
+                severity={severity}
+                sx={{ width: "100%" }}
+                variant="filled"
+            >
                 {message}
             </Alert>
         </Snackbar>

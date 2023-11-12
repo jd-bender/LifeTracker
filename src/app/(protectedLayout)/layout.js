@@ -1,13 +1,13 @@
-import '../../globals.css';
-import Providers from '../../context/Providers';
-import HeaderBar from './HeaderBar';
+import "../../globals.css";
+import Providers from "../../context/Providers";
+import HeaderBar from "./HeaderBar";
 
 const RootLayout = ({ children }) => (
     <html lang="en">
         <body className="bg-teal-300">
             <Providers>
                 <HeaderBar />
-                
+
                 <span className="grid h-screen place-items-center">
                     {children}
                 </span>

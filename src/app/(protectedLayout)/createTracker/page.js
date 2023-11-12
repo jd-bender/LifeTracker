@@ -1,6 +1,15 @@
 "use client";
 import { useState } from "react";
-import { TextField, CircularProgress, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Typography } from "@mui/material";
+import {
+    TextField,
+    CircularProgress,
+    Radio,
+    RadioGroup,
+    FormControlLabel,
+    FormControl,
+    FormLabel,
+    Typography,
+} from "@mui/material";
 import { useAuthContext } from "../../../context/AuthContext";
 import { addDocumentWithoutId } from "../../../firebase/firestore/addData";
 import Toast from "../../../ui/Toast";
@@ -13,7 +22,8 @@ const CreateTrackerPage = () => {
     const [name, setName] = useState("");
     const [nameError, setNameError] = useState(false);
     const [selectedTrackerType, setSelectedTrackerType] = useState("");
-    const [selectedTrackerTypeHelpText, setSelectedTrackerTypeHelpText] = useState("");
+    const [selectedTrackerTypeHelpText, setSelectedTrackerTypeHelpText] =
+        useState("");
     const [trackerTypeError, setTrackerTypeError] = useState(false);
     const [submittingTracker, setSubmittingTracker] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
@@ -36,7 +46,7 @@ const CreateTrackerPage = () => {
         setToastMessage("");
         setToastOpen(false);
     };
-    
+
     const submitTracker = async () => {
         if (!name.length) {
             setNameError(true);
@@ -55,7 +65,10 @@ const CreateTrackerPage = () => {
         }
 
         setSubmittingTracker(true);
-        const {result, error} = await addDocumentWithoutId(`users/${user.uid}/trackers`, {name, type: selectedTrackerType});
+        const { result, error } = await addDocumentWithoutId(
+            `users/${user.uid}/trackers`,
+            { name, type: selectedTrackerType },
+        );
         setSubmittingTracker(false);
 
         if (error) {
@@ -78,7 +91,8 @@ const CreateTrackerPage = () => {
                 helpText = "Count trackers are for tallying numbers.";
                 break;
             case "time":
-                helpText = "Time trackers are for tracking amount of time spent on something.";
+                helpText =
+                    "Time trackers are for tracking amount of time spent on something.";
                 break;
             case "money":
                 helpText = "Money trackers are for tracking financial values.";
@@ -95,39 +109,68 @@ const CreateTrackerPage = () => {
         <RouteConcealer isProtected={true} className="flex items-center">
             <div className="flex flex-col items-center space-y-8 bg-white rounded-3xl p-8">
                 <Typography variant="h4">Create Tracker</Typography>
-                <TextField 
-                    label="Name" 
-                    sx={{width: '20rem'}} 
+                <TextField
+                    label="Name"
+                    sx={{ width: "20rem" }}
                     value={name}
-                    onChange={(e) => setName(e.target.value)} 
-                    error={nameError} 
-                    variant="outlined" 
+                    onChange={(e) => setName(e.target.value)}
+                    error={nameError}
+                    variant="outlined"
                 />
 
                 <FormControl error={trackerTypeError}>
                     <FormLabel>Tracker Type</FormLabel>
-                    <RadioGroup row value={selectedTrackerType} onChange={selectedTrackerTypeChanged}>
-                        <FormControlLabel value="count" control={<Radio />} label="Count Tracker" />
-                        <FormControlLabel value="time" control={<Radio />} label="Time Tracker" />
-                        <FormControlLabel value="money" control={<Radio />} label="Money Tracker" />
-                        <FormControlLabel value="misc" control={<Radio />} label="Misc Tracker" />
+                    <RadioGroup
+                        row
+                        value={selectedTrackerType}
+                        onChange={selectedTrackerTypeChanged}
+                    >
+                        <FormControlLabel
+                            value="count"
+                            control={<Radio />}
+                            label="Count Tracker"
+                        />
+                        <FormControlLabel
+                            value="time"
+                            control={<Radio />}
+                            label="Time Tracker"
+                        />
+                        <FormControlLabel
+                            value="money"
+                            control={<Radio />}
+                            label="Money Tracker"
+                        />
+                        <FormControlLabel
+                            value="misc"
+                            control={<Radio />}
+                            label="Misc Tracker"
+                        />
                     </RadioGroup>
                 </FormControl>
 
                 <p>{selectedTrackerTypeHelpText}</p>
 
-                {
-                    submittingTracker ?
-                        <CircularProgress />
-                        :
-                        <>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4" onClick={submitTracker}>Submit</button>
-                            <BackButton />
-                        </>
-                }
+                {submittingTracker ? (
+                    <CircularProgress />
+                ) : (
+                    <>
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4"
+                            onClick={submitTracker}
+                        >
+                            Submit
+                        </button>
+                        <BackButton />
+                    </>
+                )}
             </div>
 
-            <Toast open={toastOpen} message={toastMessage} severity={toastSeverity} handleClose={handleToastClose} />
+            <Toast
+                open={toastOpen}
+                message={toastMessage}
+                severity={toastSeverity}
+                handleClose={handleToastClose}
+            />
         </RouteConcealer>
     );
 };

@@ -6,7 +6,7 @@ const auth = getAuth(firebase_app);
 export default async function signOutFromApp() {
     let result = null,
         error = null;
-        
+
     try {
         result = await signOut(auth);
     } catch (e) {
@@ -14,4 +14,4 @@ export default async function signOutFromApp() {
     }
 
     return { result, error };
-};
+}
