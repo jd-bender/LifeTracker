@@ -1,22 +1,26 @@
 "use client";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { List, ListItem, Typography, Tooltip, TextField } from "@mui/material";
 import DialogFrame from "../../ui/DialogFrame";
 import { Create as CreateIcon, Clear as ClearIcon } from "@mui/icons-material";
 
-const TrackerListContainer = (props) => {
+interface TrackerProps {
+    trackers: any[];
+    type: string;
+};
+
+const TrackerListContainer = ({trackers, type}: TrackerProps) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedTrackerName, setSelectedTrackerName] = useState("");
     const [trackerNameConfirmation, setTrackerNameConfirmation] = useState("");
-    const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
-        useState(false);
+    const [showConfirmDeleteButton, setShowConfirmDeleteButton] = useState(false);
 
-    const openDeleteConfirmationDialog = (trackerName) => {
+    const openDeleteConfirmationDialog = (trackerName: string) => {
         setSelectedTrackerName(trackerName);
         setDialogOpen(true);
     };
 
-    const checkForNameConfirmationMatch = (e) => {
+    const checkForNameConfirmationMatch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setTrackerNameConfirmation(e.target.value);
         setShowConfirmDeleteButton(e.target.value === selectedTrackerName);
     };
@@ -29,14 +33,14 @@ const TrackerListContainer = (props) => {
 
     return (
         <>
-            {props.trackers.length > 0 && (
+            {trackers.length > 0 && (
                 <span className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center shadow-xl pb-8">
                     <Typography variant="h6" component="div">
-                        {props.type} Trackers
+                        {type} Trackers
                     </Typography>
 
                     <List className="h-96 overflow-y-auto">
-                        {props.trackers.map((tracker) => (
+                        {trackers.map((tracker) => (
                             <ListItem
                                 key={tracker.id}
                                 className="w-52 justify-between"

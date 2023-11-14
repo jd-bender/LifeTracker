@@ -1,10 +1,16 @@
 "use client";
 import { useState, createContext, useContext, useEffect } from "react";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { onAuthStateChanged, getAuth, Auth } from "firebase/auth";
 import { CircularProgress } from "@mui/material";
 import firebase_app from "../firebase/config";
 
-const AuthContext = createContext({});
+interface AuthContextType {
+    user: {
+        uid: string
+    }
+};
+
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuthContext = () => useContext(AuthContext);
 

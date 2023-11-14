@@ -2,7 +2,11 @@ import "../../globals.css";
 import Providers from "../../context/Providers";
 import HeaderBar from "./HeaderBar";
 
-const RootLayout = ({ children }) => (
+interface RootLayoutType {
+    children: JSX.Element
+};
+
+const RootLayout = ({ children }: RootLayoutType) => (
     <html lang="en">
         <body className="bg-teal-300">
             <Providers>

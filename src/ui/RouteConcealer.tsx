@@ -1,9 +1,15 @@
 "use client";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "../context/AuthContext";
 
-export default function RouteConcealer({ isProtected, className, children }) {
+interface RouteType {
+    isProtected: boolean,
+    className?: string,
+    children: JSX.Element
+}
+
+export default function RouteConcealer({isProtected, className = "", children}: RouteType) {
     const { user } = useAuthContext();
     const router = useRouter();
 
@@ -15,5 +21,5 @@ export default function RouteConcealer({ isProtected, className, children }) {
         }
     }, [isProtected, user, router]);
 
-    return <span className={className || ""}>{children}</span>;
+    return (<span className={className}>{children}</span>);
 }

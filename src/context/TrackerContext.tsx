@@ -3,7 +3,11 @@ import { useState, createContext, useContext, useEffect } from "react";
 import { getDataFromCollection } from "../firebase/firestore/getData";
 import { useAuthContext } from "./AuthContext";
 
-const TrackerContext = createContext({});
+interface TrackerContextType {
+    trackers: Array<{ type: string }>
+};
+
+const TrackerContext = createContext<TrackerContextType | null>(null);
 
 export const useTrackerContext = () => useContext(TrackerContext);
 

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import {
     AppBar,
     Toolbar,
@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 const HeaderBar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleMenu = (event) => {
+    const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
