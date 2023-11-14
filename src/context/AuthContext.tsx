@@ -6,9 +6,9 @@ import firebase_app from "../firebase/config";
 
 interface AuthContextType {
     user: {
-        uid: string
-    }
-};
+        uid: string;
+    };
+}
 
 const AuthContext = createContext<AuthContextType | null>(null);
 

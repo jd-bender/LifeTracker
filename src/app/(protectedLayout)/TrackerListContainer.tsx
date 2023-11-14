@@ -7,20 +7,23 @@ import { Create as CreateIcon, Clear as ClearIcon } from "@mui/icons-material";
 interface TrackerProps {
     trackers: any[];
     type: string;
-};
+}
 
-const TrackerListContainer = ({trackers, type}: TrackerProps) => {
+const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [selectedTrackerName, setSelectedTrackerName] = useState("");
     const [trackerNameConfirmation, setTrackerNameConfirmation] = useState("");
-    const [showConfirmDeleteButton, setShowConfirmDeleteButton] = useState(false);
+    const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
+        useState(false);
 
     const openDeleteConfirmationDialog = (trackerName: string) => {
         setSelectedTrackerName(trackerName);
         setDialogOpen(true);
     };
 
-    const checkForNameConfirmationMatch = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const checkForNameConfirmationMatch = (
+        e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
         setTrackerNameConfirmation(e.target.value);
         setShowConfirmDeleteButton(e.target.value === selectedTrackerName);
     };

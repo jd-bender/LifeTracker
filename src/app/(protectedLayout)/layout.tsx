@@ -3,8 +3,8 @@ import Providers from "../../context/Providers";
 import HeaderBar from "./HeaderBar";
 
 interface RootLayoutType {
-    children: JSX.Element
-};
+    children: JSX.Element;
+}
 
 const RootLayout = ({ children }: RootLayoutType) => (
     <html lang="en">
