@@ -16,7 +16,7 @@ export const UserProfileContextProvider = ({ children }) => {
             const userSnapshot = await getUser(user.uid);
             setUserProfileData(userSnapshot.profile);
         })();
-    }, [user.uid]);
+    }, [user]);
 
     return (
         <UserProfileContext.Provider value={{ userProfileData }}>
