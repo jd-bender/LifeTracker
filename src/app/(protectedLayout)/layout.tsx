@@ -1,5 +1,8 @@
 import "../../globals.css";
-import Providers from "@/context/Providers";
+import { AuthContextProvider } from "@/context/AuthContext";
+import { TrackerContextProvider } from "@/context/TrackerContext";
+import { UserProfileContextProvider } from "@/context/UserProfileContext";
+import RouteConcealer from "@/ui/RouteConcealer";
 import HeaderBar from "./HeaderBar";
 
 interface RootLayoutType {
@@ -9,13 +12,19 @@ interface RootLayoutType {
 const RootLayout = ({ children }: RootLayoutType) => (
     <html lang="en">
         <body className="bg-teal-300">
-            <Providers>
-                <HeaderBar />
+            <AuthContextProvider>
+                <RouteConcealer isProtected={true}>
+                    <TrackerContextProvider>
+                        <UserProfileContextProvider>
+                            <HeaderBar />
 
-                <span className="grid h-screen place-items-center">
-                    {children}
-                </span>
-            </Providers>
+                            <span className="grid h-screen place-items-center">
+                                {children}
+                            </span>
+                        </UserProfileContextProvider>
+                    </TrackerContextProvider>
+                </RouteConcealer>
+            </AuthContextProvider>
         </body>
     </html>
 );
