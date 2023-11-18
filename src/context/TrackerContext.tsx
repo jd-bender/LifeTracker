@@ -17,10 +17,12 @@ export const TrackerContextProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            const trackersSnapshot = await getDataFromCollection(
-                `users/${user.uid}/trackers`,
-            );
-            setTrackers(trackersSnapshot.data);
+            if (user && user.uid) {
+                const trackersSnapshot = await getDataFromCollection(
+                    `users/${user.uid}/trackers`,
+                );
+                setTrackers(trackersSnapshot.data);
+            }
         })();
     }, [user.uid]);
 
