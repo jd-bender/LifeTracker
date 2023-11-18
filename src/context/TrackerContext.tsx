@@ -1,6 +1,6 @@
 "use client";
 import { useState, createContext, useContext, useEffect } from "react";
-import { getDataFromCollection } from "../firebase/firestore/getData";
+import { getDataFromCollection } from "@/firebase/firestore/getData";
 import { useAuthContext } from "./AuthContext";
 
 interface TrackerContextType {

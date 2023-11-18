@@ -1,5 +1,5 @@
 import "../../globals.css";
-import Providers from "../../context/Providers";
+import Providers from "@/context/Providers";
 import HeaderBar from "./HeaderBar";
 
 interface RootLayoutType {

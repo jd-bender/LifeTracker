@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import Link from "next/link";
-import signOutFromApp from "../../firebase/auth/signOut";
+import signOutFromApp from "@/firebase/auth/signOut";
 import { useRouter } from "next/navigation";
 
 const HeaderBar = () => {

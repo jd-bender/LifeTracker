@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Typography, TextField } from "@mui/material";
-import RouteConcealer from "../../../ui/RouteConcealer";
-import { useUserProfileContext } from "../../../context/UserProfileContext";
-import { useAuthContext } from "../../../context/AuthContext";
-import { updateUserData } from "../../../firebase/firestore/updateData";
-import BackButton from "../../../ui/BackButton";
-import Toast from "../../../ui/Toast";
+import RouteConcealer from "@/ui/RouteConcealer";
+import { useUserProfileContext } from "@/context/UserProfileContext";
+import { useAuthContext } from "@/context/AuthContext";
+import { updateUserData } from "@/firebase/firestore/updateData";
+import BackButton from "@/ui/BackButton";
+import Toast from "@/ui/Toast";
 
 const MyProfilePage = () => {
     const [firstName, setFirstName] = useState("");

@@ -2,7 +2,7 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { onAuthStateChanged, getAuth, Auth } from "firebase/auth";
 import { CircularProgress } from "@mui/material";
-import firebase_app from "../firebase/config";
+import firebase_app from "@/firebase/config";
 
 interface AuthContextType {
     user: {

@@ -16,7 +16,13 @@
             {
                 "name": "next"
             }
-        ]
+        ],
+        "baseUrl": "src/",
+        "paths": {
+            "@/ui/*": ["ui/*"],
+            "@/context/*": ["context/*"],
+            "@/firebase/*": ["firebase/*"]
+        }
     },
     "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]

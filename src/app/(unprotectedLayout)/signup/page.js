@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Typography, TextField } from "@mui/material";
 import Link from "next/link";
-import signUp from "../../../firebase/auth/signUp";
-import RouteConcealer from "../../../ui/RouteConcealer";
-import Toast from "../../../ui/Toast";
+import signUp from "@/firebase/auth/signUp";
+import RouteConcealer from "@/ui/RouteConcealer";
+import Toast from "@/ui/Toast";
 
 const SignUpPage = () => {
     const [firstName, setFirstName] = useState("");

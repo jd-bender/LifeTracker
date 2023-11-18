@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import RouteConcealer from "../../ui/RouteConcealer";
+import RouteConcealer from "@/ui/RouteConcealer";
 import Trackers from "./Trackers";
 
 const HomePage = () => (

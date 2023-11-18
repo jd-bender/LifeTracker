@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Typography, TextField, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import RouteConcealer from "../../../ui/RouteConcealer";
-import signIn from "../../../firebase/auth/signIn";
+import RouteConcealer from "@/ui/RouteConcealer";
+import signIn from "@/firebase/auth/signIn";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");

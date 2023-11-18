@@ -1,11 +1,16 @@
 "use client";
 import { useState, ChangeEvent } from "react";
 import { List, ListItem, Typography, Tooltip, TextField } from "@mui/material";
-import DialogFrame from "../../ui/DialogFrame";
+import DialogFrame from "@/ui/DialogFrame";
 import { Create as CreateIcon, Clear as ClearIcon } from "@mui/icons-material";
 
+type trackerType = {
+    name: string;
+    id: string;
+};
+
 interface TrackerProps {
-    trackers: any[];
+    trackers: trackerType[];
     type: string;
 }
 

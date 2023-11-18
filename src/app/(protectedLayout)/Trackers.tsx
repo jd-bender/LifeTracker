@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useTrackerContext } from "../../context/TrackerContext";
+import { useTrackerContext } from "@/context/TrackerContext";
 import TrackerListContainer from "./TrackerListContainer";
 
 const Trackers = () => {

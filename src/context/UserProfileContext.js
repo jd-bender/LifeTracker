@@ -1,6 +1,6 @@
 "use client";
 import { useState, createContext, useContext, useEffect } from "react";
-import { getUser } from "../firebase/firestore/getData";
+import { getUser } from "@/firebase/firestore/getData";
 import { useAuthContext } from "./AuthContext";
 
 const UserProfileContext = createContext({});
