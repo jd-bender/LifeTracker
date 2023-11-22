@@ -5,17 +5,17 @@ import { addDocumentWithId } from "../firestore/addData";
 const auth = getAuth(firebase_app);
 
 export default async function signUp(userData) {
-    let user = null,
+    let result = null,
         error = null;
 
     try {
-        user = await createUserWithEmailAndPassword(
+        result = await createUserWithEmailAndPassword(
             auth,
             userData.email,
             userData.password,
         );
 
-        await addDocumentWithId(`users`, user.user.uid, {
+        await addDocumentWithId(`users`, result.user.uid, {
             profile: {
                 firstName: userData.firstName,
                 lastName: userData.lastName,
@@ -25,6 +25,6 @@ export default async function signUp(userData) {
     } catch (e) {
         error = e;
     } finally {
-        return { user, error };
+        return { result, error };
     }
 }

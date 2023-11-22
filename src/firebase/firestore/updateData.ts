@@ -3,7 +3,7 @@ import firebase_app from "../config";
 
 const db = getFirestore(firebase_app);
 
-export async function updateUserData(userId, profileData) {
+export async function updateUserData(userId: string, profileData: object) {
     let result = null;
     let error = null;
 

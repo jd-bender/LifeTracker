@@ -4,7 +4,7 @@ import { getDataFromCollection } from "@/firebase/firestore/getData";
 import { useAuthContext } from "./AuthContext";
 
 interface TrackerContextType {
-    trackers: Array<{ type: string }>;
+    trackers: Array<{ type: string; name: string; id: string }>;
 }
 
 const TrackerContext = createContext<TrackerContextType | null>(null);

@@ -9,7 +9,7 @@ import firebase_app from "../config";
 
 const db = getFirestore(firebase_app);
 
-export async function addDocumentWithoutId(collection, data) {
+export async function addDocumentWithoutId(collection: string, data: object) {
     let result = null;
     let error = null;
 
@@ -22,7 +22,11 @@ export async function addDocumentWithoutId(collection, data) {
     }
 }
 
-export async function addDocumentWithId(collection, id, data) {
+export async function addDocumentWithId(
+    collection: string,
+    id: string,
+    data: object,
+) {
     let result = null;
     let error = null;
 

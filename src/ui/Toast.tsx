@@ -1,24 +1,28 @@
 import { useState, useEffect } from "react";
-import { Snackbar, Alert } from "@mui/material";
+import { Snackbar, Alert, AlertColor } from "@mui/material";
 
 const Toast = (props) => {
     const defaultAutoHideDuration = 3000;
 
     const [message, setMessage] = useState("");
-    const [severity, setSeverity] = useState("success");
+    const [severity, setSeverity] = useState<AlertColor>("success");
     const [autoHideDuration, setAutoHideDuration] = useState(
         defaultAutoHideDuration,
     );
     const [open, setOpen] = useState(false);
 
-    const popToastMessage = (type, text, time = defaultAutoHideDuration) => {
+    const popToastMessage = (
+        type: AlertColor,
+        text: string,
+        time: number = defaultAutoHideDuration,
+    ) => {
         setSeverity(type);
         setMessage(text);
         setAutoHideDuration(time);
         setOpen(true);
     };
 
-    const validateSeverity = (severity) => {
+    const validateSeverity = (severity: string) => {
         return ["success", "error"].includes(severity);
     };
 

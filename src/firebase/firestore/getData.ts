@@ -9,7 +9,7 @@ import firebase_app from "../config";
 
 const db = getFirestore(firebase_app);
 
-export async function getDataFromCollection(collectionName) {
+export async function getDataFromCollection(collectionName: string) {
     const data = [];
     let error = null;
 
@@ -29,7 +29,7 @@ export async function getDataFromCollection(collectionName) {
     }
 }
 
-export async function getUser(userId) {
+export async function getUser(userId: string) {
     const docSnap = await getDoc(doc(db, "users", userId));
     return docSnap.data();
 }

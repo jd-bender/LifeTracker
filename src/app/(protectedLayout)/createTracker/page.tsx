@@ -107,70 +107,72 @@ const CreateTrackerPage = () => {
 
     return (
         <RouteConcealer isProtected={true} className="flex items-center">
-            <div className="flex flex-col items-center space-y-8 bg-white rounded-3xl p-8">
-                <Typography variant="h4">Create Tracker</Typography>
-                <TextField
-                    label="Name"
-                    sx={{ width: "20rem" }}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    error={nameError}
-                    variant="outlined"
-                />
+            <>
+                <div className="flex flex-col items-center space-y-8 bg-white rounded-3xl p-8">
+                    <Typography variant="h4">Create Tracker</Typography>
+                    <TextField
+                        label="Name"
+                        sx={{ width: "20rem" }}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        error={nameError}
+                        variant="outlined"
+                    />
 
-                <FormControl error={trackerTypeError}>
-                    <FormLabel>Tracker Type</FormLabel>
-                    <RadioGroup
-                        row
-                        value={selectedTrackerType}
-                        onChange={selectedTrackerTypeChanged}
-                    >
-                        <FormControlLabel
-                            value="count"
-                            control={<Radio />}
-                            label="Count Tracker"
-                        />
-                        <FormControlLabel
-                            value="time"
-                            control={<Radio />}
-                            label="Time Tracker"
-                        />
-                        <FormControlLabel
-                            value="money"
-                            control={<Radio />}
-                            label="Money Tracker"
-                        />
-                        <FormControlLabel
-                            value="misc"
-                            control={<Radio />}
-                            label="Misc Tracker"
-                        />
-                    </RadioGroup>
-                </FormControl>
-
-                <p>{selectedTrackerTypeHelpText}</p>
-
-                {submittingTracker ? (
-                    <CircularProgress />
-                ) : (
-                    <>
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4"
-                            onClick={submitTracker}
+                    <FormControl error={trackerTypeError}>
+                        <FormLabel>Tracker Type</FormLabel>
+                        <RadioGroup
+                            row
+                            value={selectedTrackerType}
+                            onChange={selectedTrackerTypeChanged}
                         >
-                            Submit
-                        </button>
-                        <BackButton />
-                    </>
-                )}
-            </div>
+                            <FormControlLabel
+                                value="count"
+                                control={<Radio />}
+                                label="Count Tracker"
+                            />
+                            <FormControlLabel
+                                value="time"
+                                control={<Radio />}
+                                label="Time Tracker"
+                            />
+                            <FormControlLabel
+                                value="money"
+                                control={<Radio />}
+                                label="Money Tracker"
+                            />
+                            <FormControlLabel
+                                value="misc"
+                                control={<Radio />}
+                                label="Misc Tracker"
+                            />
+                        </RadioGroup>
+                    </FormControl>
 
-            <Toast
-                open={toastOpen}
-                message={toastMessage}
-                severity={toastSeverity}
-                handleClose={handleToastClose}
-            />
+                    <p>{selectedTrackerTypeHelpText}</p>
+
+                    {submittingTracker ? (
+                        <CircularProgress />
+                    ) : (
+                        <>
+                            <button
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-4"
+                                onClick={submitTracker}
+                            >
+                                Submit
+                            </button>
+                            <BackButton />
+                        </>
+                    )}
+                </div>
+
+                <Toast
+                    open={toastOpen}
+                    message={toastMessage}
+                    severity={toastSeverity}
+                    handleClose={handleToastClose}
+                />
+            </>
         </RouteConcealer>
     );
 };

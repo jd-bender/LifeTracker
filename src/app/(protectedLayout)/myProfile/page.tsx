@@ -53,8 +53,8 @@ const MyProfilePage = () => {
         );
     };
 
-    const saveProfileData = () => {
-        const { result, error } = updateUserData(user.uid, {
+    const saveProfileData = async () => {
+        const { error } = await updateUserData(user.uid, {
             firstName,
             lastName,
             email,
@@ -87,57 +87,63 @@ const MyProfilePage = () => {
             isProtected={true}
             className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center"
         >
-            <Typography variant="h4" className="mb-4">
-                My Profile
-            </Typography>
+            <>
+                <Typography variant="h4" className="mb-4">
+                    My Profile
+                </Typography>
 
-            <span className="mb-4">
-                <TextField
-                    label="First Name"
-                    sx={{ width: "20rem" }}
-                    value={firstName}
-                    onChange={(e) => checkForInputValueChange(e, "firstName")}
-                    variant="outlined"
+                <span className="mb-4">
+                    <TextField
+                        label="First Name"
+                        sx={{ width: "20rem" }}
+                        value={firstName}
+                        onChange={(e) =>
+                            checkForInputValueChange(e, "firstName")
+                        }
+                        variant="outlined"
+                    />
+                </span>
+
+                <span className="mb-4">
+                    <TextField
+                        label="Last Name"
+                        sx={{ width: "20rem" }}
+                        value={lastName}
+                        onChange={(e) =>
+                            checkForInputValueChange(e, "lastName")
+                        }
+                        variant="outlined"
+                    />
+                </span>
+
+                <span className="mb-4">
+                    <TextField
+                        label="Email"
+                        sx={{ width: "20rem" }}
+                        value={email}
+                        onChange={(e) => checkForInputValueChange(e, "email")}
+                        variant="outlined"
+                    />
+                </span>
+
+                {inputValueChanged && (
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                        onClick={saveProfileData}
+                    >
+                        Save Changes
+                    </button>
+                )}
+
+                <BackButton />
+
+                <Toast
+                    open={toastOpen}
+                    message={toastMessage}
+                    severity={toastSeverity}
+                    handleClose={handleToastClose}
                 />
-            </span>
-
-            <span className="mb-4">
-                <TextField
-                    label="Last Name"
-                    sx={{ width: "20rem" }}
-                    value={lastName}
-                    onChange={(e) => checkForInputValueChange(e, "lastName")}
-                    variant="outlined"
-                />
-            </span>
-
-            <span className="mb-4">
-                <TextField
-                    label="Email"
-                    sx={{ width: "20rem" }}
-                    value={email}
-                    onChange={(e) => checkForInputValueChange(e, "email")}
-                    variant="outlined"
-                />
-            </span>
-
-            {inputValueChanged && (
-                <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                    onClick={saveProfileData}
-                >
-                    Save Changes
-                </button>
-            )}
-
-            <BackButton />
-
-            <Toast
-                open={toastOpen}
-                message={toastMessage}
-                severity={toastSeverity}
-                handleClose={handleToastClose}
-            />
+            </>
         </RouteConcealer>
     );
 };
