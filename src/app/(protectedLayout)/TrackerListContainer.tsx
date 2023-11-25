@@ -15,15 +15,17 @@ interface TrackerProps {
 }
 
 const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const [selectedTrackerName, setSelectedTrackerName] = useState("");
-    const [trackerNameConfirmation, setTrackerNameConfirmation] = useState("");
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+    const [selectedTrackerId, setSelectedTrackerId] = useState<string | null>(null);
+    const [selectedTrackerName, setSelectedTrackerName] = useState<string | null>(null);
+    const [trackerNameConfirmation, setTrackerNameConfirmation] = useState<string | null>(null);
     const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
-        useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
+        useState<boolean>(false);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-    const openDeleteConfirmationDialog = (trackerName: string) => {
-        setSelectedTrackerName(trackerName);
+    const openDeleteConfirmationDialog = (trackerId: string) => {
+        const targetTracker = trackers.find((tracker) => tracker.id === trackerId);
+        setSelectedTrackerName(targetTracker.name);
         setDialogOpen(true);
     };
 
@@ -40,12 +42,14 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
         setTrackerNameConfirmation("");
     };
 
-    const handleMenu = (event) => {
+    const handleMenu = (event, trackerId) => {
         setAnchorEl(event.currentTarget);
+        setSelectedTrackerId(trackerId);
     };
 
     const closeMenu = () => {
         setAnchorEl(null);
+        setSelectedTrackerId("");
     };
 
     return (
@@ -65,38 +69,45 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
                                 <span>{tracker.name}</span>
                                 <span>
                                     <Tooltip title="Actions" placement="top">
-                                        <MenuIcon className="cursor-pointer" onClick={handleMenu} />
+                                        <MenuIcon className="cursor-pointer" onClick={(e) => handleMenu(e, tracker.id)} />
                                     </Tooltip>
-
-                                    <Menu
-                                        anchorEl={anchorEl}
-                                        anchorOrigin={{
-                                            vertical: "top",
-                                            horizontal: "right",
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: "top",
-                                            horizontal: "right",
-                                        }}
-                                        open={Boolean(anchorEl)}
-                                        onClose={closeMenu}
-                                    >
-                                        <MenuItem>
-                                            Edit
-                                        </MenuItem>
-                                        <MenuItem onClick={() =>
-                                            openDeleteConfirmationDialog(
-                                                tracker.name,
-                                            )
-                                        }>
-                                            Delete
-                                        </MenuItem>
-                                    </Menu>
                                 </span>
                             </ListItem>
                         ))}
                     </List>
+
+                    <Menu
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                        }}
+                        keepMounted
+                        disableAutoFocusItem
+                        transformOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                        }}
+                        open={Boolean(anchorEl)}
+                        onClose={closeMenu}
+                    >
+                        <MenuItem>
+                            Add Entry
+                        </MenuItem>
+                        <MenuItem>
+                            View Entries
+                        </MenuItem>
+                        <MenuItem>
+                            Edit
+                        </MenuItem>
+                        <MenuItem onClick={() =>
+                            openDeleteConfirmationDialog(
+                                selectedTrackerId,
+                            )
+                        }>
+                            Delete
+                        </MenuItem>
+                    </Menu>
                 </span>
             )}
 
