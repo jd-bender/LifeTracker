@@ -10,13 +10,17 @@ interface RootLayoutType {
 
 const RootLayout = ({ children }: RootLayoutType) => (
     <html lang="en">
-        <body className="bg-teal-300">
+        <head>
+            <title>Life Tracker</title>
+        </head>
+        
+        <body className="bg-teal-300 flex flex-col h-screen">
             <AuthContextProvider>
                 <TrackerContextProvider>
                     <UserProfileContextProvider>
                         <HeaderBar />
 
-                        <span className="grid h-screen place-items-center">
+                        <span className="flex flex-1 p-10 justify-center items-center">
                             {children}
                         </span>
                     </UserProfileContextProvider>

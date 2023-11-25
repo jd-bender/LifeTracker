@@ -1,8 +1,8 @@
 "use client";
 import { useState, ChangeEvent } from "react";
-import { List, ListItem, Typography, Tooltip, TextField } from "@mui/material";
+import { List, ListItem, Typography, Tooltip, TextField, Menu, MenuItem } from "@mui/material";
 import DialogFrame from "@/ui/DialogFrame";
-import { Create as CreateIcon, Clear as ClearIcon } from "@mui/icons-material";
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 type trackerType = {
     name: string;
@@ -20,6 +20,7 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
     const [trackerNameConfirmation, setTrackerNameConfirmation] = useState("");
     const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
         useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const openDeleteConfirmationDialog = (trackerName: string) => {
         setSelectedTrackerName(trackerName);
@@ -39,10 +40,18 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
         setTrackerNameConfirmation("");
     };
 
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const closeMenu = () => {
+        setAnchorEl(null);
+    };
+
     return (
         <>
             {trackers.length > 0 && (
-                <span className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center shadow-xl pb-8">
+                <span className="bg-white flex flex-col min-w-fit rounded-3xl justify-center place-items-center shadow-xl pb-8">
                     <Typography variant="h6" component="div">
                         {type} Trackers
                     </Typography>
@@ -55,23 +64,35 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
                             >
                                 <span>{tracker.name}</span>
                                 <span>
-                                    <Tooltip title="Edit" placement="top">
-                                        <CreateIcon
-                                            fontSize="small"
-                                            className="cursor-pointer"
-                                        />
+                                    <Tooltip title="Actions" placement="top">
+                                        <MenuIcon className="cursor-pointer" onClick={handleMenu} />
                                     </Tooltip>
-                                    <Tooltip title="Delete" placement="top">
-                                        <ClearIcon
-                                            fontSize="small"
-                                            className="cursor-pointer"
-                                            onClick={() =>
-                                                openDeleteConfirmationDialog(
-                                                    tracker.name,
-                                                )
-                                            }
-                                        />
-                                    </Tooltip>
+
+                                    <Menu
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: "top",
+                                            horizontal: "right",
+                                        }}
+                                        open={Boolean(anchorEl)}
+                                        onClose={closeMenu}
+                                    >
+                                        <MenuItem>
+                                            Edit
+                                        </MenuItem>
+                                        <MenuItem onClick={() =>
+                                            openDeleteConfirmationDialog(
+                                                tracker.name,
+                                            )
+                                        }>
+                                            Delete
+                                        </MenuItem>
+                                    </Menu>
                                 </span>
                             </ListItem>
                         ))}

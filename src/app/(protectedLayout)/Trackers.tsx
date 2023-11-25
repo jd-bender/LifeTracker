@@ -46,7 +46,7 @@ const Trackers = () => {
     }, [trackers]);
 
     return (
-        <span className="flex space-x-4">
+        <span className="flex flex-wrap gap-x-8 gap-y-8 justify-center">
             {atLeastOneTracker ? (
                 <>
                     <TrackerListContainer

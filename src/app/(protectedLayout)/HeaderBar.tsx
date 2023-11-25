@@ -32,7 +32,7 @@ const HeaderBar = () => {
     };
 
     return (
-        <AppBar>
+        <AppBar position="sticky" className="flex">
             <Toolbar>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     <Link href="/">Life Tracker</Link>
