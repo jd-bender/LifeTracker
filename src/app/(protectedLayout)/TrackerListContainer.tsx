@@ -1,6 +1,14 @@
 "use client";
 import { useState, ChangeEvent } from "react";
-import { List, ListItem, Typography, Tooltip, TextField, Menu, MenuItem } from "@mui/material";
+import {
+    List,
+    ListItem,
+    Typography,
+    Tooltip,
+    TextField,
+    Menu,
+    MenuItem,
+} from "@mui/material";
 import DialogFrame from "@/ui/DialogFrame";
 import { Menu as MenuIcon } from "@mui/icons-material";
 
@@ -16,15 +24,23 @@ interface TrackerProps {
 
 const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-    const [selectedTrackerId, setSelectedTrackerId] = useState<string | null>(null);
-    const [selectedTrackerName, setSelectedTrackerName] = useState<string | null>(null);
-    const [trackerNameConfirmation, setTrackerNameConfirmation] = useState<string | null>(null);
+    const [selectedTrackerId, setSelectedTrackerId] = useState<string | null>(
+        null,
+    );
+    const [selectedTrackerName, setSelectedTrackerName] = useState<
+        string | null
+    >(null);
+    const [trackerNameConfirmation, setTrackerNameConfirmation] = useState<
+        string | null
+    >(null);
     const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
         useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const openDeleteConfirmationDialog = (trackerId: string) => {
-        const targetTracker = trackers.find((tracker) => tracker.id === trackerId);
+        const targetTracker = trackers.find(
+            (tracker) => tracker.id === trackerId,
+        );
         setSelectedTrackerName(targetTracker.name);
         setDialogOpen(true);
     };
@@ -69,7 +85,12 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
                                 <span>{tracker.name}</span>
                                 <span>
                                     <Tooltip title="Actions" placement="top">
-                                        <MenuIcon className="cursor-pointer" onClick={(e) => handleMenu(e, tracker.id)} />
+                                        <MenuIcon
+                                            className="cursor-pointer"
+                                            onClick={(e) =>
+                                                handleMenu(e, tracker.id)
+                                            }
+                                        />
                                     </Tooltip>
                                 </span>
                             </ListItem>
@@ -91,20 +112,14 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
                         open={Boolean(anchorEl)}
                         onClose={closeMenu}
                     >
-                        <MenuItem>
-                            Add Entry
-                        </MenuItem>
-                        <MenuItem>
-                            View Entries
-                        </MenuItem>
-                        <MenuItem>
-                            Edit
-                        </MenuItem>
-                        <MenuItem onClick={() =>
-                            openDeleteConfirmationDialog(
-                                selectedTrackerId,
-                            )
-                        }>
+                        <MenuItem>Add Entry</MenuItem>
+                        <MenuItem>View Entries</MenuItem>
+                        <MenuItem>Edit</MenuItem>
+                        <MenuItem
+                            onClick={() =>
+                                openDeleteConfirmationDialog(selectedTrackerId)
+                            }
+                        >
                             Delete
                         </MenuItem>
                     </Menu>

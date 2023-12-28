@@ -13,7 +13,7 @@ const RootLayout = ({ children }: RootLayoutType) => (
         <head>
             <title>Life Tracker</title>
         </head>
-        
+
         <body className="bg-teal-300 flex flex-col h-screen">
             <AuthContextProvider>
                 <TrackerContextProvider>
