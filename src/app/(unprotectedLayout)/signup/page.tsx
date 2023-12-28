@@ -107,7 +107,7 @@ const SignUpPage = () => {
     return (
         <RouteConcealer
             isProtected={false}
-            className="bg-white flex flex-col w-1/2 h-1/2 min-w-fit rounded-3xl justify-center place-items-center"
+            className="bg-white flex flex-col w-1/2 h-3/4 min-w-fit rounded-3xl justify-center place-items-center"
         >
             <>
                 <Typography variant="h4" sx={{ marginBottom: ".5em" }}>
@@ -165,7 +165,12 @@ const SignUpPage = () => {
                     />
                 </span>
 
-                <button onClick={submitAccountCreation}>Confirm</button>
+                <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-2 mb-4 py-2 px-4 rounded-full"
+                    onClick={submitAccountCreation}
+                >
+                    Confirm
+                </button>
 
                 <Link href="/login">
                     <u>Return to Login</u>
