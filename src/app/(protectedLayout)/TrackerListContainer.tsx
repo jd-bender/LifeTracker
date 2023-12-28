@@ -11,28 +11,24 @@ import {
 } from "@mui/material";
 import DialogFrame from "@/ui/DialogFrame";
 import { Menu as MenuIcon } from "@mui/icons-material";
+import TrackerProps from "sharedTypes/trackers";
 
-type trackerType = {
-    name: string;
-    id: string;
-};
-
-interface TrackerProps {
-    trackers: trackerType[];
+interface TrackerListProps {
+    trackers: TrackerProps[];
     type: string;
 }
 
-const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
+const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-    const [selectedTrackerId, setSelectedTrackerId] = useState<string | null>(
-        null,
+    const [selectedTrackerId, setSelectedTrackerId] = useState<string>(
+        "",
     );
     const [selectedTrackerName, setSelectedTrackerName] = useState<
-        string | null
-    >(null);
+        string
+    >("");
     const [trackerNameConfirmation, setTrackerNameConfirmation] = useState<
-        string | null
-    >(null);
+        string
+    >("");
     const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
         useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -41,6 +37,7 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
         const targetTracker = trackers.find(
             (tracker) => tracker.id === trackerId,
         );
+
         setSelectedTrackerName(targetTracker.name);
         setDialogOpen(true);
     };
@@ -58,7 +55,7 @@ const TrackerListContainer = ({ trackers, type }: TrackerProps) => {
         setTrackerNameConfirmation("");
     };
 
-    const handleMenu = (event, trackerId) => {
+    const handleMenu = (event, trackerId: string) => {
         setAnchorEl(event.currentTarget);
         setSelectedTrackerId(trackerId);
     };

@@ -71,7 +71,7 @@ const MyProfilePage = () => {
         }
     };
 
-    const popToastMessage = (type, text) => {
+    const popToastMessage = (type: AlertColor, text: string) => {
         setToastSeverity(type);
         setToastMessage(text);
         setToastOpen(true);

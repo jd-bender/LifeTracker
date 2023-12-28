@@ -4,17 +4,21 @@ import { onAuthStateChanged, getAuth, Auth } from "firebase/auth";
 import { CircularProgress } from "@mui/material";
 import firebase_app from "@/firebase/config";
 
-interface AuthContextType {
+interface AuthContextProps {
     user: {
         uid: string;
     };
-}
+};
 
-const AuthContext = createContext<AuthContextType | null>(null);
+interface AuthContextProviderProps {
+    children: React.JSX.Element;
+};
+
+const AuthContext = createContext<AuthContextProps | null>(null);
 
 export const useAuthContext = () => useContext(AuthContext);
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 

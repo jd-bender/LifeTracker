@@ -1,5 +1,5 @@
 "use client";
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, SetStateAction } from "react";
 import {
     AppBar,
     Toolbar,
@@ -7,16 +7,19 @@ import {
     IconButton,
     Menu,
     MenuItem,
+    PopoverVirtualElement,
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import Link from "next/link";
 import signOutFromApp from "@/firebase/auth/signOut";
 import { useRouter } from "next/navigation";
 
-const HeaderBar = () => {
-    const [anchorEl, setAnchorEl] = useState(null);
+type ElementType = Element | (() => Element) | PopoverVirtualElement | (() => PopoverVirtualElement);
 
-    const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
+const HeaderBar = () => {
+    const [anchorEl, setAnchorEl] = useState<ElementType | null>(null);
+
+    const handleMenu = (event: { currentTarget: SetStateAction<ElementType> }) => {
         setAnchorEl(event.currentTarget);
     };
 

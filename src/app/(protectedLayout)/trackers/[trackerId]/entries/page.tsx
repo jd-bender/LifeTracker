@@ -6,8 +6,12 @@ import BackButton from "@/ui/BackButton";
 import { useAuthContext } from "@/context/AuthContext";
 import { getDataFromCollection } from "@/firebase/firestore/getData";
 
+interface EntryProps {
+    contents: string;
+};
+
 const EntriesPage = ({ params }) => {
-    const [entries, setEntries] = useState([]);
+    const [entries, setEntries] = useState<EntryProps[] | []>([]);
     const { user } = useAuthContext();
 
     useEffect(() => {

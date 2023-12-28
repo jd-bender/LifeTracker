@@ -4,7 +4,11 @@ import Link from "next/link";
 import { useTrackerContext } from "@/context/TrackerContext";
 import BackButton from "@/ui/BackButton";
 
-const TrackerPage = ({ params }) => {
+interface paramsProps {
+    trackerId: string;
+};
+
+const TrackerPage = (params: paramsProps) => {
     const [trackerName, setTrackerName] = useState("");
     const { trackers } = useTrackerContext();
 

@@ -4,7 +4,14 @@ import { addDocumentWithId } from "../firestore/addData";
 
 const auth = getAuth(firebase_app);
 
-export default async function signUp(userData) {
+interface signUpProps {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+};
+
+export default async function signUp(userData: signUpProps) {
     let result = null,
         error = null;
 
@@ -27,4 +34,4 @@ export default async function signUp(userData) {
     } finally {
         return { result, error };
     }
-}
+};

@@ -9,7 +9,7 @@ import {
     FormControl,
     FormLabel,
     Typography,
-    AlertColor,
+    AlertColor
 } from "@mui/material";
 import { useAuthContext } from "@/context/AuthContext";
 import { addDocumentWithoutId } from "@/firebase/firestore/addData";

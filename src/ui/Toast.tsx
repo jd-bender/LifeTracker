@@ -5,6 +5,7 @@ interface ToastProps {
     open: boolean;
     message: string;
     severity: AlertColor;
+    hideDuration?: number;
     handleClose: (event: SyntheticEvent<Element, Event>) => void;
 };
 
@@ -13,30 +14,21 @@ const Toast = (props: ToastProps) => {
 
     const [message, setMessage] = useState("");
     const [severity, setSeverity] = useState<AlertColor>("success");
-    const [autoHideDuration, setAutoHideDuration] = useState(
-        defaultAutoHideDuration,
+    const [autoHideDuration] = useState(
+        defaultAutoHideDuration || props.hideDuration,
     );
     const [open, setOpen] = useState(false);
 
-    const popToastMessage = (
-        type: AlertColor,
-        text: string,
-        time: number = defaultAutoHideDuration,
-    ) => {
-        setSeverity(type);
-        setMessage(text);
-        setAutoHideDuration(time);
-        setOpen(true);
-    };
-
-    const validateSeverity = (severity: string) => {
+    const validateSeverity = (severity: AlertColor) => {
         return ["success", "error"].includes(severity);
     };
 
     useEffect(() => {
         if (props.open) {
             if (props.message.length && validateSeverity(props.severity)) {
-                popToastMessage(props.severity, props.message);
+                setSeverity(props.severity);
+                setMessage(props.message);
+                setOpen(true);
             }
         } else {
             setOpen(false);
