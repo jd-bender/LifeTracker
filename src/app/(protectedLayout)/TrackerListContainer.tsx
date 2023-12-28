@@ -20,15 +20,10 @@ interface TrackerListProps {
 
 const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-    const [selectedTrackerId, setSelectedTrackerId] = useState<string>(
-        "",
-    );
-    const [selectedTrackerName, setSelectedTrackerName] = useState<
-        string
-    >("");
-    const [trackerNameConfirmation, setTrackerNameConfirmation] = useState<
-        string
-    >("");
+    const [selectedTrackerId, setSelectedTrackerId] = useState<string>("");
+    const [selectedTrackerName, setSelectedTrackerName] = useState<string>("");
+    const [trackerNameConfirmation, setTrackerNameConfirmation] =
+        useState<string>("");
     const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
         useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
