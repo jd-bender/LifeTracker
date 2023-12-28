@@ -6,7 +6,7 @@ import { useAuthContext } from "@/context/AuthContext";
 interface RouteType {
     isProtected: boolean;
     className?: string;
-    children: JSX.Element;
+    children: React.JSX.Element;
 }
 
 export default function RouteConcealer({

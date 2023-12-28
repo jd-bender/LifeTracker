@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Typography, TextField } from "@mui/material";
+import { Typography, TextField, AlertColor } from "@mui/material";
 import Link from "next/link";
 import signUp from "@/firebase/auth/signUp";
 import RouteConcealer from "@/ui/RouteConcealer";
@@ -20,7 +20,7 @@ const SignUpPage = () => {
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
     const [toastMessage, setToastMessage] = useState("");
-    const [toastSeverity, setToastSeverity] = useState("");
+    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
     const [toastOpen, setToastOpen] = useState(false);
 
     const router = useRouter();
@@ -74,9 +74,7 @@ const SignUpPage = () => {
         return true;
     };
 
-    const submitAccountCreation = async (event) => {
-        event.preventDefault();
-
+    const submitAccountCreation = async () => {
         const dataValidated = validateUserData();
 
         if (dataValidated) {
@@ -95,10 +93,15 @@ const SignUpPage = () => {
         }
     };
 
-    const popErrorMessage = (text) => {
+    const popErrorMessage = (text: string) => {
         setToastSeverity("error");
         setToastMessage(text);
         setToastOpen(true);
+    };
+
+    const handleToastClose = () => {
+        setToastMessage("");
+        setToastOpen(false);
     };
 
     return (
@@ -172,6 +175,7 @@ const SignUpPage = () => {
                     open={toastOpen}
                     message={toastMessage}
                     severity={toastSeverity}
+                    handleClose={handleToastClose}
                 />
             </>
         </RouteConcealer>

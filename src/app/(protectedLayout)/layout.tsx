@@ -5,8 +5,8 @@ import { UserProfileContextProvider } from "@/context/UserProfileContext";
 import HeaderBar from "./HeaderBar";
 
 interface RootLayoutType {
-    children: JSX.Element;
-}
+    children: React.JSX.Element;
+};
 
 const RootLayout = ({ children }: RootLayoutType) => (
     <html lang="en">

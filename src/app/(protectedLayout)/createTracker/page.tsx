@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
     TextField,
     CircularProgress,
@@ -9,6 +9,7 @@ import {
     FormControl,
     FormLabel,
     Typography,
+    AlertColor,
 } from "@mui/material";
 import { useAuthContext } from "@/context/AuthContext";
 import { addDocumentWithoutId } from "@/firebase/firestore/addData";
@@ -27,7 +28,7 @@ const CreateTrackerPage = () => {
     const [trackerTypeError, setTrackerTypeError] = useState(false);
     const [submittingTracker, setSubmittingTracker] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
-    const [toastSeverity, setToastSeverity] = useState("");
+    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
     const [toastOpen, setToastOpen] = useState(false);
 
     const resetTrackerForm = () => {
@@ -36,7 +37,7 @@ const CreateTrackerPage = () => {
         setSelectedTrackerTypeHelpText("");
     };
 
-    const popToastMessage = (type, text) => {
+    const popToastMessage = (type: AlertColor, text: string) => {
         setToastSeverity(type);
         setToastMessage(text);
         setToastOpen(true);
@@ -65,10 +66,12 @@ const CreateTrackerPage = () => {
         }
 
         setSubmittingTracker(true);
+        
         const { result, error } = await addDocumentWithoutId(
             `users/${user.uid}/trackers`,
             { name, type: selectedTrackerType },
         );
+        
         setSubmittingTracker(false);
 
         if (error) {
@@ -80,7 +83,7 @@ const CreateTrackerPage = () => {
         }
     };
 
-    const selectedTrackerTypeChanged = (event) => {
+    const selectedTrackerTypeChanged = (event: ChangeEvent<HTMLInputElement>) => {
         const trackerType = event.target.value;
         setSelectedTrackerType(trackerType);
 

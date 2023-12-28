@@ -1,6 +1,6 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Typography, TextField } from "@mui/material";
+import { useState, useEffect, ChangeEvent } from "react";
+import { Typography, TextField, AlertColor } from "@mui/material";
 import RouteConcealer from "@/ui/RouteConcealer";
 import { useUserProfileContext } from "@/context/UserProfileContext";
 import { useAuthContext } from "@/context/AuthContext";
@@ -14,7 +14,7 @@ const MyProfilePage = () => {
     const [email, setEmail] = useState("");
     const [inputValueChanged, setInputValueChanged] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
-    const [toastSeverity, setToastSeverity] = useState("");
+    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
     const [toastOpen, setToastOpen] = useState(false);
 
     let { userProfileData } = useUserProfileContext();
@@ -27,8 +27,8 @@ const MyProfilePage = () => {
         setEmail(userProfileData.email || "");
     }, [userProfileData]);
 
-    const checkForInputValueChange = (e, field) => {
-        const newValue = e.target.value;
+    const checkForInputValueChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
+        const newValue = event.target.value;
         let firstNameChanged = firstName !== userProfileData.firstName,
             lastNameChanged = lastName !== userProfileData.lastName,
             emailChanged = email !== userProfileData.email;

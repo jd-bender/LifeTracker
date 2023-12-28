@@ -1,7 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SyntheticEvent } from "react";
 import { Snackbar, Alert, AlertColor } from "@mui/material";
 
-const Toast = (props) => {
+interface ToastProps {
+    open: boolean;
+    message: string;
+    severity: AlertColor;
+    handleClose: (event: SyntheticEvent<Element, Event>) => void;
+};
+
+const Toast = (props: ToastProps) => {
     const defaultAutoHideDuration = 3000;
 
     const [message, setMessage] = useState("");
