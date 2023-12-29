@@ -23,7 +23,7 @@ const AddEntryPage = ({ params }: paramsProps) => {
     };
 
     return (
-        <>
+        <span className="flex flex-col items-center">
             <TextField
                 label="Entry Contents"
                 sx={{ width: "20rem" }}
@@ -32,12 +32,12 @@ const AddEntryPage = ({ params }: paramsProps) => {
             />
             <button
                 onClick={saveEntry}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-full"
             >
                 Save
             </button>
             <BackButton backLocation={`trackers/${params.trackerId}`} />
-        </>
+        </span>
     );
 };
 

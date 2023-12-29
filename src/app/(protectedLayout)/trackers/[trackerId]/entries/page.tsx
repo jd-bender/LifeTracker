@@ -1,6 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import {
+    Button,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+} from "@mui/material";
 import Link from "next/link";
 import BackButton from "@/ui/BackButton";
 import { useAuthContext } from "@/context/AuthContext";
@@ -52,7 +58,14 @@ const EntriesPage = ({ params }) => {
                     </List>
                 </>
             ) : (
-                <p>No entries yet, how about you create one?</p>
+                <span className="flex flex-col items-center">
+                    <p>No entries yet, how about you create one?</p>
+                    <Button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-2 rounded-full">
+                        <Link href={`/trackers/${params.trackerId}/addEntry`}>
+                            Add Entry
+                        </Link>
+                    </Button>
+                </span>
             )}
 
             <BackButton backLocation={`trackers/${params.trackerId}`} />

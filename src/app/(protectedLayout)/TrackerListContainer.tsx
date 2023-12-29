@@ -105,7 +105,13 @@ const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
                         open={Boolean(anchorEl)}
                         onClose={closeMenu}
                     >
-                        <MenuItem>Add Entry</MenuItem>
+                        <MenuItem>
+                            <Link
+                                href={`/trackers/${selectedTrackerId}/addEntry`}
+                            >
+                                Add Entry
+                            </Link>
+                        </MenuItem>
                         <MenuItem>
                             <Link
                                 href={`/trackers/${selectedTrackerId}/entries`}
