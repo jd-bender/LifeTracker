@@ -9,6 +9,7 @@ import {
     Menu,
     MenuItem,
 } from "@mui/material";
+import Link from "next/link";
 import DialogFrame from "@/ui/DialogFrame";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import TrackerProps from "sharedTypes/trackers";
@@ -105,7 +106,13 @@ const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
                         onClose={closeMenu}
                     >
                         <MenuItem>Add Entry</MenuItem>
-                        <MenuItem>View Entries</MenuItem>
+                        <MenuItem>
+                            <Link
+                                href={`/trackers/${selectedTrackerId}/entries`}
+                            >
+                                View Entries
+                            </Link>
+                        </MenuItem>
                         <MenuItem>Edit</MenuItem>
                         <MenuItem
                             onClick={() =>

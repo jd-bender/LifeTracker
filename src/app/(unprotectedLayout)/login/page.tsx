@@ -67,7 +67,10 @@ const LoginPage = () => {
                     <CircularProgress />
                 ) : (
                     <>
-                        <button className="mb-4" onClick={submitLogin}>
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-2 mb-4 py-2 px-4 rounded-full"
+                            onClick={submitLogin}
+                        >
                             Login
                         </button>
                         <Link href="/signup">

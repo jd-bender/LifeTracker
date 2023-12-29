@@ -8,10 +8,11 @@ import { getDataFromCollection } from "@/firebase/firestore/getData";
 
 interface EntryProps {
     contents: string;
-};
+}
 
 const EntriesPage = ({ params }) => {
     const [entries, setEntries] = useState<EntryProps[] | []>([]);
+    const [atLeastOneEntry, setAtLeastOneEntry] = useState(false);
     const { user } = useAuthContext();
 
     useEffect(() => {
@@ -19,29 +20,40 @@ const EntriesPage = ({ params }) => {
             const entriesSnapshot = await getDataFromCollection(
                 `users/${user.uid}/trackers/${params.trackerId}/entries`,
             );
+
             setEntries(entriesSnapshot.data);
+
+            if (entriesSnapshot.data.length > 0) {
+                setAtLeastOneEntry(true);
+            }
         })();
     }, [user.uid, params.trackerId]);
 
     return (
         <>
-            <List className="h-96 overflow-y-scroll">
-                {entries.map((entry) => (
-                    <ListItem key={entry.id}>
-                        <Link
-                            href={`/trackers/${params.trackerId}/entries/${entry.id}`}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-48"
-                        >
-                            <ListItemButton>
-                                <ListItemText
-                                    className="text-center"
-                                    primary={entry.contents}
-                                />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                ))}
-            </List>
+            {atLeastOneEntry ? (
+                <>
+                    <List className="h-96 overflow-y-scroll">
+                        {entries.map((entry) => (
+                            <ListItem key={entry.id}>
+                                <Link
+                                    href={`/trackers/${params.trackerId}/entries/${entry.id}`}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-48"
+                                >
+                                    <ListItemButton>
+                                        <ListItemText
+                                            className="text-center"
+                                            primary={entry.contents}
+                                        />
+                                    </ListItemButton>
+                                </Link>
+                            </ListItem>
+                        ))}
+                    </List>
+                </>
+            ) : (
+                <p>No entries yet, how about you create one?</p>
+            )}
 
             <BackButton backLocation={`trackers/${params.trackerId}`} />
         </>
