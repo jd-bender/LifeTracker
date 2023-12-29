@@ -27,17 +27,17 @@ const TrackerPage = ({ params }: paramsProps) => {
     const openEditTrackerDialog = () => {};
 
     return (
-        <>
-            <p>{trackerName} Tracker</p>
+        <span className="flex flex-col items-center">
+            <p>{trackerName}</p>
 
-            <span className="flex">
+            <span className="flex mt-4">
                 <Link href={`/trackers/${params.trackerId}/entries`}>
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                         View Entries
                     </button>
                 </Link>
                 <Link href={`/trackers/${params.trackerId}/addEntry`}>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 mr-2 rounded-full">
                         Add Entry
                     </button>
                 </Link>
@@ -50,7 +50,7 @@ const TrackerPage = ({ params }: paramsProps) => {
             </span>
 
             <BackButton />
-        </>
+        </span>
     );
 };
 
