@@ -6,10 +6,12 @@ import { addDocumentWithoutId } from "@/firebase/firestore/addData";
 import BackButton from "@/ui/BackButton";
 
 interface paramsProps {
-    trackerId: string;
-};
+    params: {
+        trackerId: string;
+    };
+}
 
-const AddEntryPage = (params: paramsProps) => {
+const AddEntryPage = ({ params }: paramsProps) => {
     const [entryContents, setEntryContents] = useState("");
     const { user } = useAuthContext();
 

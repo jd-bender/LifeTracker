@@ -5,10 +5,12 @@ import { useTrackerContext } from "@/context/TrackerContext";
 import BackButton from "@/ui/BackButton";
 
 interface paramsProps {
-    trackerId: string;
-};
+    params: {
+        trackerId: string;
+    };
+}
 
-const TrackerPage = (params: paramsProps) => {
+const TrackerPage = ({ params }: paramsProps) => {
     const [trackerName, setTrackerName] = useState("");
     const { trackers } = useTrackerContext();
 
