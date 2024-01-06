@@ -1,6 +1,6 @@
 "use client";
 import { useState, createContext, useContext, useEffect } from "react";
-import { getDataFromCollection } from "@/firebase/firestore/getData";
+import { getTrackers } from "@/firebase/database/actions";
 import { useAuthContext } from "./AuthContext";
 
 interface TrackerContextType {
@@ -17,10 +17,9 @@ export const TrackerContextProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            const trackersSnapshot = await getDataFromCollection(
-                `users/${user.uid}/trackers`,
-            );
-            setTrackers(trackersSnapshot.data);
+            const trackersSnapshot = await getTrackers(user.uid);
+
+            setTrackers(trackersSnapshot.result);
         })();
     }, [user]);
 

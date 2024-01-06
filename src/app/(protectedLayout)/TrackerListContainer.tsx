@@ -45,6 +45,8 @@ const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
         setShowConfirmDeleteButton(e.target.value === selectedTrackerName);
     };
 
+    const deleteTracker = () => {};
+
     const handleClose = () => {
         setDialogOpen(false);
         setSelectedTrackerName("");
@@ -149,7 +151,10 @@ const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
                 </span>
                 {showConfirmDeleteButton && (
                     <span className="mx-auto mb-4">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        <button
+                            onClick={deleteTracker}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                        >
                             Confirm
                         </button>
                     </span>

@@ -1,13 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { CircularProgress, TextField } from "@mui/material";
+import { AlertColor, CircularProgress, TextField } from "@mui/material";
 import { useAuthContext } from "@/context/AuthContext";
-import { addDocumentWithoutId } from "@/firebase/firestore/addData";
+import { addTrackerEntry } from "@/firebase/database/actions";
 import BackButton from "@/ui/BackButton";
 import { useTrackerContext } from "@/context/TrackerContext";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import Toast from "@/ui/Toast";
 
 interface paramsProps {
     params: {
@@ -24,6 +25,10 @@ const AddEntryPage = ({ params }: paramsProps) => {
     const [trackerType, setTrackerType] = useState("");
     const [trackerName, setTrackerName] = useState("");
     const [date, setDate] = useState<Dayjs | null>(dayjs());
+    const [saving, setSaving] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
+    const [toastOpen, setToastOpen] = useState(false);
 
     const { user } = useAuthContext();
     const { trackers } = useTrackerContext();
@@ -39,6 +44,35 @@ const AddEntryPage = ({ params }: paramsProps) => {
         }
     }, [params.trackerId, trackers]);
 
+    const clearActiveInput = () => {
+        switch (trackerType) {
+            case "count":
+                setCount(0);
+                break;
+            case "time":
+                setHours(0);
+                setMinutes(0);
+                break;
+            case "money":
+                setMoney(0);
+                break;
+            case "misc":
+                setMisc("");
+                break;
+        }
+    };
+
+    const popToastMessage = (type: AlertColor, text: string) => {
+        setToastSeverity(type);
+        setToastMessage(text);
+        setToastOpen(true);
+    };
+
+    const handleToastClose = () => {
+        setToastMessage("");
+        setToastOpen(false);
+    };
+
     const renderInput = (type: string) => {
         switch (type) {
             case "count":
@@ -47,6 +81,8 @@ const AddEntryPage = ({ params }: paramsProps) => {
                         label="Count"
                         type="number"
                         sx={{ width: "20rem" }}
+                        disabled={saving}
+                        value={count}
                         onChange={(e) => setCount(parseInt(e.target.value))}
                         variant="outlined"
                     />
@@ -58,6 +94,8 @@ const AddEntryPage = ({ params }: paramsProps) => {
                             label="Hours"
                             type="number"
                             sx={{ width: "20rem" }}
+                            disabled={saving}
+                            value={hours}
                             onChange={(e) => setHours(parseInt(e.target.value))}
                             variant="outlined"
                         />
@@ -66,6 +104,8 @@ const AddEntryPage = ({ params }: paramsProps) => {
                             type="number"
                             className="mt-4"
                             sx={{ width: "20rem" }}
+                            disabled={saving}
+                            value={minutes}
                             onChange={(e) =>
                                 setMinutes(parseInt(e.target.value))
                             }
@@ -79,6 +119,8 @@ const AddEntryPage = ({ params }: paramsProps) => {
                         label="Money"
                         type="money"
                         sx={{ width: "20rem" }}
+                        disabled={saving}
+                        value={money}
                         onChange={(e) => setMoney(parseFloat(e.target.value))}
                         variant="outlined"
                     />
@@ -88,6 +130,8 @@ const AddEntryPage = ({ params }: paramsProps) => {
                     <TextField
                         label="Misc"
                         sx={{ width: "20rem" }}
+                        disabled={saving}
+                        value={misc}
                         onChange={(e) => setMisc(e.target.value)}
                         variant="outlined"
                     />
@@ -114,10 +158,23 @@ const AddEntryPage = ({ params }: paramsProps) => {
         }
 
         if (contents) {
-            const { result, error } = await addDocumentWithoutId(
-                `users/${user.uid}/trackers/${params.trackerId}/entries`,
-                { contents },
+            setSaving(true);
+
+            const { result, error } = await addTrackerEntry(
+                user.uid,
+                params.trackerId,
+                { contents, datetime: date.unix() },
             );
+
+            if (!error) {
+                popToastMessage("success", "Entry saved successfully.");
+                clearActiveInput();
+                setDate(dayjs());
+            } else {
+                popToastMessage("error", "Something went wrong.");
+            }
+
+            setSaving(false);
         }
     };
 
@@ -136,23 +193,35 @@ const AddEntryPage = ({ params }: paramsProps) => {
                                     label="Date"
                                     value={date}
                                     onChange={(newValue) => setDate(newValue)}
+                                    disabled={saving}
                                 />
                             </LocalizationProvider>
                         </span>
                     </span>
 
-                    <button
-                        onClick={saveEntry}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-full"
-                    >
-                        Save
-                    </button>
+                    {saving ? (
+                        <CircularProgress className="mt-4" />
+                    ) : (
+                        <button
+                            onClick={saveEntry}
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-full"
+                        >
+                            Save
+                        </button>
+                    )}
                 </>
             ) : (
                 <CircularProgress />
             )}
 
             <BackButton backLocation={`trackers/${params.trackerId}`} />
+
+            <Toast
+                open={toastOpen}
+                message={toastMessage}
+                severity={toastSeverity}
+                handleClose={handleToastClose}
+            />
         </span>
     );
 };

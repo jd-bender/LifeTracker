@@ -4,7 +4,7 @@ import { Typography, TextField, AlertColor } from "@mui/material";
 import RouteConcealer from "@/ui/RouteConcealer";
 import { useUserProfileContext } from "@/context/UserProfileContext";
 import { useAuthContext } from "@/context/AuthContext";
-import { updateUserData } from "@/firebase/firestore/updateData";
+import { updateUserData } from "@/firebase/database/actions";
 import BackButton from "@/ui/BackButton";
 import Toast from "@/ui/Toast";
 
@@ -22,28 +22,31 @@ const MyProfilePage = () => {
     const { user } = useAuthContext();
 
     useEffect(() => {
-        setFirstName(userProfileData.firstName || "");
-        setLastName(userProfileData.lastName || "");
-        setEmail(userProfileData.email || "");
+        setFirstName(userProfileData?.firstName || "");
+        setLastName(userProfileData?.lastName || "");
+        setEmail(userProfileData?.email || "");
     }, [userProfileData]);
 
-    const checkForInputValueChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: string) => {
+    const checkForInputValueChange = (
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        field: string,
+    ) => {
         const newValue = event.target.value;
-        let firstNameChanged = firstName !== userProfileData.firstName,
-            lastNameChanged = lastName !== userProfileData.lastName,
-            emailChanged = email !== userProfileData.email;
+        let firstNameChanged = firstName !== userProfileData?.firstName,
+            lastNameChanged = lastName !== userProfileData?.lastName,
+            emailChanged = email !== userProfileData?.email;
 
         switch (field) {
             case "firstName":
-                firstNameChanged = newValue !== userProfileData.firstName;
+                firstNameChanged = newValue !== userProfileData?.firstName;
                 setFirstName(newValue);
                 break;
             case "lastName":
-                lastNameChanged = newValue !== userProfileData.lastName;
+                lastNameChanged = newValue !== userProfileData?.lastName;
                 setLastName(newValue);
                 break;
             case "email":
-                emailChanged = newValue !== userProfileData.email;
+                emailChanged = newValue !== userProfileData?.email;
                 setEmail(newValue);
                 break;
         }
@@ -68,6 +71,8 @@ const MyProfilePage = () => {
             userProfileData.email = email;
 
             setInputValueChanged(false);
+        } else {
+            popToastMessage("error", "Something went wrong.");
         }
     };
 

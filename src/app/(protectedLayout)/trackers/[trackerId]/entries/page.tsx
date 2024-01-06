@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import BackButton from "@/ui/BackButton";
 import { useAuthContext } from "@/context/AuthContext";
-import { getDataFromCollection } from "@/firebase/firestore/getData";
+import { getTrackerEntries } from "@/firebase/database/actions";
 
 interface EntryProps {
     contents: string;
@@ -23,8 +23,9 @@ const EntriesPage = ({ params }) => {
 
     useEffect(() => {
         (async () => {
-            const entriesSnapshot = await getDataFromCollection(
-                `users/${user.uid}/trackers/${params.trackerId}/entries`,
+            const entriesSnapshot = await getTrackerEntries(
+                user.uid,
+                params.trackerId,
             );
 
             setEntries(entriesSnapshot.data);

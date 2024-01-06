@@ -9,10 +9,11 @@ import {
     FormControl,
     FormLabel,
     Typography,
-    AlertColor
+    AlertColor,
 } from "@mui/material";
 import { useAuthContext } from "@/context/AuthContext";
-import { addDocumentWithoutId } from "@/firebase/firestore/addData";
+// import { addDocumentWithoutId } from "@/firebase/firestore/addData";
+import { addTracker } from "@/firebase/database/actions";
 import Toast from "@/ui/Toast";
 import RouteConcealer from "@/ui/RouteConcealer";
 import BackButton from "@/ui/BackButton";
@@ -66,12 +67,13 @@ const CreateTrackerPage = () => {
         }
 
         setSubmittingTracker(true);
-        
-        const { result, error } = await addDocumentWithoutId(
-            `users/${user.uid}/trackers`,
-            { name, type: selectedTrackerType },
+
+        let { result, error } = await addTracker(
+            user.uid,
+            name,
+            selectedTrackerType,
         );
-        
+
         setSubmittingTracker(false);
 
         if (error) {
@@ -83,7 +85,9 @@ const CreateTrackerPage = () => {
         }
     };
 
-    const selectedTrackerTypeChanged = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedTrackerTypeChanged = (
+        event: ChangeEvent<HTMLInputElement>,
+    ) => {
         const trackerType = event.target.value;
         setSelectedTrackerType(trackerType);
 
