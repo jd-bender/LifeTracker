@@ -12,7 +12,6 @@ import {
     AlertColor,
 } from "@mui/material";
 import { useAuthContext } from "@/context/AuthContext";
-// import { addDocumentWithoutId } from "@/firebase/firestore/addData";
 import { addTracker } from "@/firebase/database/actions";
 import Toast from "@/ui/Toast";
 import RouteConcealer from "@/ui/RouteConcealer";

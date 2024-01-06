@@ -1,6 +1,6 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import firebase_app from "../config";
-import { addDocumentWithId } from "../firestore/addData";
+import { addUserData } from "../database/actions";
 
 const auth = getAuth(firebase_app);
 
@@ -9,29 +9,26 @@ interface signUpProps {
     lastName: string;
     email: string;
     password: string;
-};
+}
 
 export default async function signUp(userData: signUpProps) {
-    let result = null,
-        error = null;
+    let error: object;
 
     try {
-        result = await createUserWithEmailAndPassword(
+        let result = await createUserWithEmailAndPassword(
             auth,
             userData.email,
             userData.password,
         );
 
-        await addDocumentWithId(`users`, result.user.uid, {
-            profile: {
-                firstName: userData.firstName,
-                lastName: userData.lastName,
-                email: userData.email,
-            },
+        await addUserData(result.user.uid, {
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
         });
     } catch (e) {
         error = e;
     } finally {
-        return { result, error };
+        return { error };
     }
-};
+}

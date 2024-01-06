@@ -78,7 +78,7 @@ const SignUpPage = () => {
         const dataValidated = validateUserData();
 
         if (dataValidated) {
-            const { result, error } = await signUp({
+            const { error } = await signUp({
                 firstName,
                 lastName,
                 email,

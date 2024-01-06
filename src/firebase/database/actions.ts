@@ -3,6 +3,7 @@ import {
     ref,
     push,
     get,
+    set,
     update,
     DataSnapshot,
 } from "firebase/database";
@@ -16,6 +17,10 @@ async function getSnapshot(dbPath: string) {
 
 async function pushData(dbPath: string, data: object) {
     return await push(ref(db, dbPath), data);
+}
+
+async function setData(dbPath: string, data: object) {
+    return await set(ref(db, dbPath), data);
 }
 
 async function updateData(dbPath: string, data: object) {
@@ -47,6 +52,18 @@ type userDataType = {
     lastName: string;
     email: string;
 };
+
+export async function addUserData(userId: string, userData: userDataType) {
+    let error: object;
+
+    try {
+        await setData(`users/${userId}/profile`, userData);
+    } catch (e) {
+        error = e;
+    }
+
+    return { error };
+}
 
 export async function getUserData(userId: string) {
     let result: userDataType, error: object;

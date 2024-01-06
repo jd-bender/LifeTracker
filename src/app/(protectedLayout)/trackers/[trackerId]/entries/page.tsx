@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import Link from "next/link";
 import BackButton from "@/ui/BackButton";
 import { useAuthContext } from "@/context/AuthContext";
+import { useTrackerContext } from "@/context/TrackerContext";
 import { getTrackerEntries } from "@/firebase/database/actions";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef, ValueFormatterParams } from "ag-grid-community";
@@ -19,6 +20,7 @@ interface EntryProps {
 
 const EntriesPage = ({ params }) => {
     const [entries, setEntries] = useState<EntryProps[]>([]);
+    const [trackerName, setTrackerName] = useState("");
     const [atLeastOneEntry, setAtLeastOneEntry] = useState(false);
     const [columnDefs] = useState<ColDef[]>([
         { headerName: "Count", field: "contents" },
@@ -34,6 +36,17 @@ const EntriesPage = ({ params }) => {
     ]);
     const gridRef = useRef<AgGridReact<EntryProps>>(null);
     const { user } = useAuthContext();
+    const { trackers } = useTrackerContext();
+
+    useEffect(() => {
+        const targetTracker = trackers.find(
+            (tracker) => tracker.id === params.trackerId,
+        );
+
+        if (targetTracker) {
+            setTrackerName(targetTracker.name);
+        }
+    }, [trackers, params.trackerId]);
 
     useEffect(() => {
         (async () => {
@@ -53,9 +66,11 @@ const EntriesPage = ({ params }) => {
     return (
         <>
             {atLeastOneEntry ? (
-                <>
+                <span className="flex flex-col items-center">
+                    <p>{trackerName} Entries</p>
+
                     <div
-                        className="ag-theme-quartz"
+                        className="ag-theme-quartz mt-4"
                         style={{
                             height: "500px",
                             width: "600px",
@@ -67,24 +82,7 @@ const EntriesPage = ({ params }) => {
                             rowData={entries}
                         ></AgGridReact>
                     </div>
-                    {/* <List className="h-96 overflow-y-scroll">
-                        {entries.map((entry) => (
-                            <ListItem key={entry.id}>
-                                <Link
-                                    href={`/trackers/${params.trackerId}/entries/${entry.id}`}
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-48"
-                                >
-                                    <ListItemButton>
-                                        <ListItemText
-                                            className="text-center"
-                                            primary={entry.contents}
-                                        />
-                                    </ListItemButton>
-                                </Link>
-                            </ListItem>
-                        ))}
-                    </List> */}
-                </>
+                </span>
             ) : (
                 <span className="flex flex-col items-center">
                     <p>No entries yet, how about you create one?</p>
