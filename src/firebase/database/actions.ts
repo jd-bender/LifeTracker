@@ -90,6 +90,8 @@ export async function getTrackers(userId: string) {
             }
 
             result = trackers;
+        } else {
+            result = [];
         }
     } catch (e) {
         error = e;
@@ -118,7 +120,7 @@ export async function addTrackerEntry(
 }
 
 export async function getTrackerEntries(userId: string, trackerId: string) {
-    let result: object, error: object;
+    let result: Array<{ contents: string; datetime: number }>, error: object;
 
     try {
         const snapshot = await getSnapshot(
@@ -126,7 +128,22 @@ export async function getTrackerEntries(userId: string, trackerId: string) {
         );
 
         if (snapshot.exists()) {
-            return snapshot.val();
+            const entriesSnapshotData = snapshot.val();
+            const entries = [];
+
+            for (let entryId in entriesSnapshotData) {
+                const entryData = entriesSnapshotData[entryId];
+
+                entries.push({
+                    id: entryId,
+                    contents: entryData.contents,
+                    datetime: entryData.datetime,
+                });
+            }
+
+            result = entries;
+        } else {
+            result = [];
         }
     } catch (e) {
         error = e;

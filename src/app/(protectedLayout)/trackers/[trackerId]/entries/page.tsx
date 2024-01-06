@@ -14,6 +14,7 @@ import { getTrackerEntries } from "@/firebase/database/actions";
 
 interface EntryProps {
     contents: string;
+    datetime: number;
 }
 
 const EntriesPage = ({ params }) => {
@@ -28,9 +29,9 @@ const EntriesPage = ({ params }) => {
                 params.trackerId,
             );
 
-            setEntries(entriesSnapshot.data);
+            setEntries(entriesSnapshot.result);
 
-            if (entriesSnapshot.data.length > 0) {
+            if (entriesSnapshot.result.length > 0) {
                 setAtLeastOneEntry(true);
             }
         })();
