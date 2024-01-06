@@ -1,4 +1,11 @@
-import { getDatabase, ref, push, get, update } from "firebase/database";
+import {
+    getDatabase,
+    ref,
+    push,
+    get,
+    update,
+    DataSnapshot,
+} from "firebase/database";
 import firebase_app from "../config";
 
 const db = getDatabase(firebase_app);
@@ -13,6 +20,26 @@ async function pushData(dbPath: string, data: object) {
 
 async function updateData(dbPath: string, data: object) {
     return await update(ref(db, dbPath), data);
+}
+
+function getSnapshotChildren(snapshot: DataSnapshot) {
+    if (snapshot.exists()) {
+        const snapshotData = snapshot.val();
+        const snapshotChildren = [];
+
+        for (let snapshotChildId in snapshotData) {
+            const snapshotChildData = snapshotData[snapshotChildId];
+
+            snapshotChildren.push({
+                id: snapshotChildId,
+                ...snapshotChildData,
+            });
+        }
+
+        return snapshotChildren;
+    } else {
+        return [];
+    }
 }
 
 type userDataType = {
@@ -74,25 +101,7 @@ export async function getTrackers(userId: string) {
 
     try {
         const snapshot = await getSnapshot(`users/${userId}/trackers`);
-
-        if (snapshot.exists()) {
-            const trackersSnapshotData = snapshot.val();
-            const trackers = [];
-
-            for (let trackerId in trackersSnapshotData) {
-                const trackerData = trackersSnapshotData[trackerId];
-
-                trackers.push({
-                    id: trackerId,
-                    name: trackerData.name,
-                    type: trackerData.type,
-                });
-            }
-
-            result = trackers;
-        } else {
-            result = [];
-        }
+        result = getSnapshotChildren(snapshot);
     } catch (e) {
         error = e;
     }
@@ -126,25 +135,7 @@ export async function getTrackerEntries(userId: string, trackerId: string) {
         const snapshot = await getSnapshot(
             `users/${userId}/trackers/${trackerId}/entries`,
         );
-
-        if (snapshot.exists()) {
-            const entriesSnapshotData = snapshot.val();
-            const entries = [];
-
-            for (let entryId in entriesSnapshotData) {
-                const entryData = entriesSnapshotData[entryId];
-
-                entries.push({
-                    id: entryId,
-                    contents: entryData.contents,
-                    datetime: entryData.datetime,
-                });
-            }
-
-            result = entries;
-        } else {
-            result = [];
-        }
+        result = getSnapshotChildren(snapshot);
     } catch (e) {
         error = e;
     }

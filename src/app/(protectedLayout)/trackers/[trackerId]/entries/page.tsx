@@ -1,16 +1,16 @@
 "use client";
-import { useState, useEffect } from "react";
-import {
-    Button,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText,
-} from "@mui/material";
+import { useState, useEffect, useRef } from "react";
+import { Button } from "@mui/material";
 import Link from "next/link";
 import BackButton from "@/ui/BackButton";
 import { useAuthContext } from "@/context/AuthContext";
 import { getTrackerEntries } from "@/firebase/database/actions";
+import { AgGridReact } from "ag-grid-react";
+import { ColDef, ValueFormatterParams } from "ag-grid-community";
+import dayjs from "dayjs";
+
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
 
 interface EntryProps {
     contents: string;
@@ -18,8 +18,21 @@ interface EntryProps {
 }
 
 const EntriesPage = ({ params }) => {
-    const [entries, setEntries] = useState<EntryProps[] | []>([]);
+    const [entries, setEntries] = useState<EntryProps[]>([]);
     const [atLeastOneEntry, setAtLeastOneEntry] = useState(false);
+    const [columnDefs] = useState<ColDef[]>([
+        { headerName: "Count", field: "contents" },
+        {
+            headerName: "Date",
+            field: "datetime",
+            valueFormatter: (
+                params: ValueFormatterParams<EntryProps, number>,
+            ) => {
+                return dayjs.unix(params.value).format("MM/DD/YYYY");
+            },
+        },
+    ]);
+    const gridRef = useRef<AgGridReact<EntryProps>>(null);
     const { user } = useAuthContext();
 
     useEffect(() => {
@@ -41,7 +54,20 @@ const EntriesPage = ({ params }) => {
         <>
             {atLeastOneEntry ? (
                 <>
-                    <List className="h-96 overflow-y-scroll">
+                    <div
+                        className="ag-theme-quartz"
+                        style={{
+                            height: "500px",
+                            width: "600px",
+                        }}
+                    >
+                        <AgGridReact
+                            ref={gridRef}
+                            columnDefs={columnDefs}
+                            rowData={entries}
+                        ></AgGridReact>
+                    </div>
+                    {/* <List className="h-96 overflow-y-scroll">
                         {entries.map((entry) => (
                             <ListItem key={entry.id}>
                                 <Link
@@ -57,7 +83,7 @@ const EntriesPage = ({ params }) => {
                                 </Link>
                             </ListItem>
                         ))}
-                    </List>
+                    </List> */}
                 </>
             ) : (
                 <span className="flex flex-col items-center">
