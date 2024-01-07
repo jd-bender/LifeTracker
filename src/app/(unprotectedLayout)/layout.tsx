@@ -1,9 +1,6 @@
 import "../../globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
-
-interface IRootLayout {
-    children: React.JSX.Element;
-}
+import { IRootLayout } from "sharedInterfaces";
 
 export default function RootLayout({ children }: IRootLayout) {
     return (

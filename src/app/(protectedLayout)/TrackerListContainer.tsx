@@ -12,12 +12,12 @@ import {
 import Link from "next/link";
 import DialogFrame from "@/ui/DialogFrame";
 import { Menu as MenuIcon } from "@mui/icons-material";
-import TrackerProps from "sharedTypes/trackers";
+import { ITracker } from "sharedInterfaces";
 import { useAuthContext } from "@/context/AuthContext";
 import { deleteTracker } from "@/firebase/database/actions";
 
 interface ITrackerList {
-    trackers: TrackerProps[];
+    trackers: ITracker[];
     type: string;
 }
 

@@ -2,12 +2,7 @@
 import { useState, createContext, useContext, useEffect } from "react";
 import { getUserData } from "@/firebase/database/actions";
 import { useAuthContext } from "./AuthContext";
-
-interface IUserProfileData {
-    firstName: string;
-    lastName: string;
-    email: string;
-}
+import { IUserProfileData } from "sharedInterfaces";
 
 interface IUserProfileContext {
     userProfileData: IUserProfileData;

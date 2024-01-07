@@ -9,6 +9,7 @@ import {
     DataSnapshot,
 } from "firebase/database";
 import firebase_app from "../config";
+import { IUserProfileData } from "sharedInterfaces";
 
 const db = getDatabase(firebase_app);
 
@@ -52,13 +53,7 @@ function getSnapshotChildren(snapshot: DataSnapshot) {
     }
 }
 
-interface IUserData {
-    firstName: string;
-    lastName: string;
-    email: string;
-}
-
-export async function addUserData(userId: string, userData: IUserData) {
+export async function addUserData(userId: string, userData: IUserProfileData) {
     let error: object;
 
     try {
@@ -71,7 +66,7 @@ export async function addUserData(userId: string, userData: IUserData) {
 }
 
 export async function getUserData(userId: string) {
-    let result: IUserData, error: object;
+    let result: IUserProfileData, error: object;
 
     try {
         const snapshot = await getSnapshot(`users/${userId}/profile`);
@@ -86,7 +81,10 @@ export async function getUserData(userId: string) {
     return { result, error };
 }
 
-export async function updateUserData(userId: string, userData: IUserData) {
+export async function updateUserData(
+    userId: string,
+    userData: IUserProfileData,
+) {
     let error: object;
 
     try {

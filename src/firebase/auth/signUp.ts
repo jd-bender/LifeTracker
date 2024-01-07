@@ -1,17 +1,11 @@
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import firebase_app from "../config";
 import { addUserData } from "../database/actions";
+import { IUserProfileData } from "sharedInterfaces";
 
 const auth = getAuth(firebase_app);
 
-interface ISignUp {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-}
-
-export default async function signUp(userData: ISignUp) {
+export default async function signUp(userData: IUserProfileData) {
     let error: object;
 
     try {

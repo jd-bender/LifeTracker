@@ -3,14 +3,9 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTrackerContext } from "@/context/TrackerContext";
 import BackButton from "@/ui/BackButton";
+import { IRouteParams } from "sharedInterfaces";
 
-interface IParams {
-    params: {
-        trackerId: string;
-    };
-}
-
-const TrackerPage = ({ params }: IParams) => {
+const TrackerPage = ({ params }: IRouteParams) => {
     const [trackerName, setTrackerName] = useState("");
     const { trackers } = useTrackerContext();
 

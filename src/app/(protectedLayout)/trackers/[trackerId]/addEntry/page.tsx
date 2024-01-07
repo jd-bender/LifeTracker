@@ -9,14 +9,9 @@ import { useTrackerContext } from "@/context/TrackerContext";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Toast, { IToast } from "@/ui/Toast";
+import { IRouteParams } from "sharedInterfaces";
 
-interface IParams {
-    params: {
-        trackerId: string;
-    };
-}
-
-const AddEntryPage = ({ params }: IParams) => {
+const AddEntryPage = ({ params }: IRouteParams) => {
     const [count, setCount] = useState(0);
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);

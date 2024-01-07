@@ -1,14 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useTrackerContext } from "@/context/TrackerContext";
-import TrackerProps from "sharedTypes/trackers";
+import { ITracker } from "sharedInterfaces";
 import TrackerListContainer from "./TrackerListContainer";
 
 const Trackers = () => {
-    const [countTrackers, setCountTrackers] = useState<TrackerProps[]>([]);
-    const [timeTrackers, setTimeTrackers] = useState<TrackerProps[]>([]);
-    const [moneyTrackers, setMoneyTrackers] = useState<TrackerProps[]>([]);
-    const [miscTrackers, setMiscTrackers] = useState<TrackerProps[]>([]);
+    const [countTrackers, setCountTrackers] = useState<ITracker[]>([]);
+    const [timeTrackers, setTimeTrackers] = useState<ITracker[]>([]);
+    const [moneyTrackers, setMoneyTrackers] = useState<ITracker[]>([]);
+    const [miscTrackers, setMiscTrackers] = useState<ITracker[]>([]);
     const [atLeastOneTracker, setAtLeastOneTracker] = useState(false);
 
     const { trackers } = useTrackerContext();

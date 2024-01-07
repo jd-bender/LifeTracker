@@ -3,10 +3,7 @@ import { AuthContextProvider } from "@/context/AuthContext";
 import { TrackerContextProvider } from "@/context/TrackerContext";
 import { UserProfileContextProvider } from "@/context/UserProfileContext";
 import HeaderBar from "./HeaderBar";
-
-interface IRootLayout {
-    children: React.JSX.Element;
-}
+import { IRootLayout } from "sharedInterfaces";
 
 const RootLayout = ({ children }: IRootLayout) => (
     <html lang="en">
