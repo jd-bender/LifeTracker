@@ -5,6 +5,7 @@ import {
     get,
     set,
     update,
+    remove,
     DataSnapshot,
 } from "firebase/database";
 import firebase_app from "../config";
@@ -25,6 +26,10 @@ async function setData(dbPath: string, data: object) {
 
 async function updateData(dbPath: string, data: object) {
     return await update(ref(db, dbPath), data);
+}
+
+async function deleteData(dbPath: string) {
+    return await remove(ref(db, dbPath));
 }
 
 function getSnapshotChildren(snapshot: DataSnapshot) {
@@ -110,6 +115,18 @@ export async function addTracker(
     }
 
     return { result, error };
+}
+
+export async function deleteTracker(userId: string, trackerId: string) {
+    let error: object;
+
+    try {
+        await deleteData(`users/${userId}/trackers/${trackerId}`);
+    } catch (e) {
+        error = e;
+    }
+
+    return { error };
 }
 
 export async function getTrackers(userId: string) {

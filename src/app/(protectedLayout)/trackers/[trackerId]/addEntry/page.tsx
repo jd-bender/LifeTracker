@@ -1,14 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { AlertColor, CircularProgress, TextField } from "@mui/material";
+import { CircularProgress, TextField } from "@mui/material";
 import { useAuthContext } from "@/context/AuthContext";
 import { addTrackerEntry } from "@/firebase/database/actions";
 import BackButton from "@/ui/BackButton";
 import { useTrackerContext } from "@/context/TrackerContext";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import Toast from "@/ui/Toast";
+import Toast, { IToast } from "@/ui/Toast";
 
 interface paramsProps {
     params: {
@@ -26,12 +26,10 @@ const AddEntryPage = ({ params }: paramsProps) => {
     const [trackerName, setTrackerName] = useState("");
     const [date, setDate] = useState<Dayjs | null>(dayjs());
     const [saving, setSaving] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
-    const [toastOpen, setToastOpen] = useState(false);
 
     const { user } = useAuthContext();
     const { trackers } = useTrackerContext();
+    const toast = useRef<IToast>();
 
     useEffect(() => {
         const selectedTracker = trackers.find(
@@ -60,17 +58,6 @@ const AddEntryPage = ({ params }: paramsProps) => {
                 setMisc("");
                 break;
         }
-    };
-
-    const popToastMessage = (type: AlertColor, text: string) => {
-        setToastSeverity(type);
-        setToastMessage(text);
-        setToastOpen(true);
-    };
-
-    const handleToastClose = () => {
-        setToastMessage("");
-        setToastOpen(false);
     };
 
     const renderInput = (type: string) => {
@@ -167,11 +154,14 @@ const AddEntryPage = ({ params }: paramsProps) => {
             );
 
             if (!error) {
-                popToastMessage("success", "Entry saved successfully.");
+                toast.current.popToastMessage(
+                    "success",
+                    "Entry saved successfully.",
+                );
                 clearActiveInput();
                 setDate(dayjs());
             } else {
-                popToastMessage("error", "Something went wrong.");
+                toast.current.popToastMessage("error", "Something went wrong.");
             }
 
             setSaving(false);
@@ -216,12 +206,7 @@ const AddEntryPage = ({ params }: paramsProps) => {
 
             <BackButton backLocation={`trackers/${params.trackerId}`} />
 
-            <Toast
-                open={toastOpen}
-                message={toastMessage}
-                severity={toastSeverity}
-                handleClose={handleToastClose}
-            />
+            <Toast ref={toast} />
         </span>
     );
 };

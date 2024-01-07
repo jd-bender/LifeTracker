@@ -1,15 +1,18 @@
-import { useState, useEffect, SyntheticEvent } from "react";
+import {
+    useState,
+    useEffect,
+    SyntheticEvent,
+    useRef,
+    forwardRef,
+    useImperativeHandle,
+} from "react";
 import { Snackbar, Alert, AlertColor } from "@mui/material";
 
 interface ToastProps {
-    open: boolean;
-    message: string;
-    severity: AlertColor;
     hideDuration?: number;
-    handleClose: (event: SyntheticEvent<Element, Event>) => void;
-};
+}
 
-const Toast = (props: ToastProps) => {
+const Toast = forwardRef((props: ToastProps, ref) => {
     const defaultAutoHideDuration = 3000;
 
     const [message, setMessage] = useState("");
@@ -19,30 +22,35 @@ const Toast = (props: ToastProps) => {
     );
     const [open, setOpen] = useState(false);
 
+    useImperativeHandle(ref, () => {
+        return {
+            popToastMessage(severity: AlertColor, message: string) {
+                if (message.length && validateSeverity(severity)) {
+                    setSeverity(severity);
+                    setMessage(message);
+                    setOpen(true);
+                }
+            },
+        };
+    });
+
     const validateSeverity = (severity: AlertColor) => {
         return ["success", "error"].includes(severity);
     };
 
-    useEffect(() => {
-        if (props.open) {
-            if (props.message.length && validateSeverity(props.severity)) {
-                setSeverity(props.severity);
-                setMessage(props.message);
-                setOpen(true);
-            }
-        } else {
-            setOpen(false);
-        }
-    }, [props.open, props.message, props.severity]);
+    const handleClose = () => {
+        setMessage("");
+        setOpen(false);
+    };
 
     return (
         <Snackbar
             open={open}
             autoHideDuration={autoHideDuration}
-            onClose={props.handleClose}
+            onClose={handleClose}
         >
             <Alert
-                onClose={props.handleClose}
+                onClose={handleClose}
                 severity={severity}
                 sx={{ width: "100%" }}
                 variant="filled"
@@ -51,6 +59,11 @@ const Toast = (props: ToastProps) => {
             </Alert>
         </Snackbar>
     );
-};
+});
+
+Toast.displayName = "Toast";
 
 export default Toast;
+export interface IToast {
+    popToastMessage: (severity: AlertColor, message: string) => {};
+}

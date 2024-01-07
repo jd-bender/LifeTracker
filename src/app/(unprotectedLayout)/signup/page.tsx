@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Typography, TextField, AlertColor } from "@mui/material";
+import { Typography, TextField } from "@mui/material";
 import Link from "next/link";
 import signUp from "@/firebase/auth/signUp";
 import RouteConcealer from "@/ui/RouteConcealer";
-import Toast from "@/ui/Toast";
+import Toast, { IToast } from "@/ui/Toast";
 
 const SignUpPage = () => {
     const [firstName, setFirstName] = useState("");
@@ -19,45 +19,46 @@ const SignUpPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
 
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
-    const [toastOpen, setToastOpen] = useState(false);
-
+    const toast = useRef<IToast>();
     const router = useRouter();
 
     const validateUserData = () => {
         setFirstNameError(!firstName.length);
 
         if (!firstName.length) {
-            popErrorMessage("Must enter a first name.");
+            toast.current.popToastMessage("error", "Must enter a first name.");
             return false;
         }
 
         setLastNameError(!lastName.length);
 
         if (!lastName.length) {
-            popErrorMessage("Must enter a last name.");
+            toast.current.popToastMessage("error", "Must enter a last name.");
             return false;
         }
 
         setEmailError(!email.length);
 
         if (!email.length) {
-            popErrorMessage("Must enter an email address.");
+            toast.current.popToastMessage(
+                "error",
+                "Must enter an email address.",
+            );
             return false;
         }
 
         setPasswordError(!password.length);
 
         if (!password.length) {
-            popErrorMessage("Must enter a password.");
+            toast.current.popToastMessage("error", "Must enter a password.");
             return false;
         }
 
         setConfirmPasswordError(!confirmPassword.length);
 
         if (!confirmPassword.length) {
-            popErrorMessage(
+            toast.current.popToastMessage(
+                "error",
                 "Must enter password a second time for confirmation.",
             );
             return false;
@@ -67,7 +68,7 @@ const SignUpPage = () => {
         setConfirmPasswordError(password !== confirmPassword);
 
         if (password !== confirmPassword) {
-            popErrorMessage("Passwords do not match.");
+            toast.current.popToastMessage("error", "Passwords do not match.");
             return false;
         }
 
@@ -86,22 +87,14 @@ const SignUpPage = () => {
             });
 
             if (error) {
-                return popErrorMessage("Something went wrong.");
+                return toast.current.popToastMessage(
+                    "error",
+                    "Something went wrong.",
+                );
             }
 
             return router.push("/");
         }
-    };
-
-    const popErrorMessage = (text: string) => {
-        setToastSeverity("error");
-        setToastMessage(text);
-        setToastOpen(true);
-    };
-
-    const handleToastClose = () => {
-        setToastMessage("");
-        setToastOpen(false);
     };
 
     return (
@@ -176,12 +169,7 @@ const SignUpPage = () => {
                     <u>Return to Login</u>
                 </Link>
 
-                <Toast
-                    open={toastOpen}
-                    message={toastMessage}
-                    severity={toastSeverity}
-                    handleClose={handleToastClose}
-                />
+                <Toast ref={toast} />
             </>
         </RouteConcealer>
     );

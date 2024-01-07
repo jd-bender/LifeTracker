@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useRef } from "react";
 import {
     TextField,
     CircularProgress,
@@ -9,16 +9,16 @@ import {
     FormControl,
     FormLabel,
     Typography,
-    AlertColor,
 } from "@mui/material";
 import { useAuthContext } from "@/context/AuthContext";
 import { addTracker } from "@/firebase/database/actions";
-import Toast from "@/ui/Toast";
+import Toast, { IToast } from "@/ui/Toast";
 import RouteConcealer from "@/ui/RouteConcealer";
 import BackButton from "@/ui/BackButton";
 
 const CreateTrackerPage = () => {
     const { user } = useAuthContext();
+    const toast = useRef<IToast>();
 
     const [name, setName] = useState("");
     const [nameError, setNameError] = useState(false);
@@ -27,9 +27,6 @@ const CreateTrackerPage = () => {
         useState("");
     const [trackerTypeError, setTrackerTypeError] = useState(false);
     const [submittingTracker, setSubmittingTracker] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
-    const [toastOpen, setToastOpen] = useState(false);
 
     const resetTrackerForm = () => {
         setName("");
@@ -37,21 +34,10 @@ const CreateTrackerPage = () => {
         setSelectedTrackerTypeHelpText("");
     };
 
-    const popToastMessage = (type: AlertColor, text: string) => {
-        setToastSeverity(type);
-        setToastMessage(text);
-        setToastOpen(true);
-    };
-
-    const handleToastClose = () => {
-        setToastMessage("");
-        setToastOpen(false);
-    };
-
     const submitTracker = async () => {
         if (!name.length) {
             setNameError(true);
-            popToastMessage("error", "Must enter a name.");
+            toast.current.popToastMessage("error", "Must enter a name.");
             return;
         } else {
             setNameError(false);
@@ -59,7 +45,10 @@ const CreateTrackerPage = () => {
 
         if (!selectedTrackerType.length) {
             setTrackerTypeError(true);
-            popToastMessage("error", "Must select a tracker type.");
+            toast.current.popToastMessage(
+                "error",
+                "Must select a tracker type.",
+            );
             return;
         } else {
             setTrackerTypeError(false);
@@ -76,10 +65,13 @@ const CreateTrackerPage = () => {
         setSubmittingTracker(false);
 
         if (error) {
-            popToastMessage("error", "Something went wrong.");
+            toast.current.popToastMessage("error", "Something went wrong.");
             console.error(error);
         } else {
-            popToastMessage("success", "Tracker created successfully!");
+            toast.current.popToastMessage(
+                "success",
+                "Tracker created successfully!",
+            );
             resetTrackerForm();
         }
     };
@@ -172,12 +164,7 @@ const CreateTrackerPage = () => {
                     )}
                 </div>
 
-                <Toast
-                    open={toastOpen}
-                    message={toastMessage}
-                    severity={toastSeverity}
-                    handleClose={handleToastClose}
-                />
+                <Toast ref={toast} />
             </>
         </RouteConcealer>
     );

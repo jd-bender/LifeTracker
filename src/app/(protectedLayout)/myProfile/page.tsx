@@ -1,25 +1,22 @@
 "use client";
-import { useState, useEffect, ChangeEvent } from "react";
-import { Typography, TextField, AlertColor } from "@mui/material";
+import { useState, useEffect, useRef, ChangeEvent } from "react";
+import { Typography, TextField } from "@mui/material";
 import RouteConcealer from "@/ui/RouteConcealer";
 import { useUserProfileContext } from "@/context/UserProfileContext";
 import { useAuthContext } from "@/context/AuthContext";
 import { updateUserData } from "@/firebase/database/actions";
 import BackButton from "@/ui/BackButton";
-import Toast from "@/ui/Toast";
+import Toast, { IToast } from "@/ui/Toast";
 
 const MyProfilePage = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [inputValueChanged, setInputValueChanged] = useState(false);
-    const [toastMessage, setToastMessage] = useState("");
-    const [toastSeverity, setToastSeverity] = useState<AlertColor>("success");
-    const [toastOpen, setToastOpen] = useState(false);
 
     let { userProfileData } = useUserProfileContext();
-
     const { user } = useAuthContext();
+    const toast = useRef<IToast>();
 
     useEffect(() => {
         setFirstName(userProfileData?.firstName || "");
@@ -64,7 +61,10 @@ const MyProfilePage = () => {
         });
 
         if (!error) {
-            popToastMessage("success", "Profile details saved successfully.");
+            toast.current.popToastMessage(
+                "success",
+                "Profile details saved successfully.",
+            );
 
             userProfileData.firstName = firstName;
             userProfileData.lastName = lastName;
@@ -72,19 +72,8 @@ const MyProfilePage = () => {
 
             setInputValueChanged(false);
         } else {
-            popToastMessage("error", "Something went wrong.");
+            toast.current.popToastMessage("error", "Something went wrong.");
         }
-    };
-
-    const popToastMessage = (type: AlertColor, text: string) => {
-        setToastSeverity(type);
-        setToastMessage(text);
-        setToastOpen(true);
-    };
-
-    const handleToastClose = () => {
-        setToastMessage("");
-        setToastOpen(false);
     };
 
     return (
@@ -142,12 +131,7 @@ const MyProfilePage = () => {
 
                 <BackButton />
 
-                <Toast
-                    open={toastOpen}
-                    message={toastMessage}
-                    severity={toastSeverity}
-                    handleClose={handleToastClose}
-                />
+                <Toast ref={toast} />
             </>
         </RouteConcealer>
     );

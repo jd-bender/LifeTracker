@@ -13,6 +13,8 @@ import Link from "next/link";
 import DialogFrame from "@/ui/DialogFrame";
 import { Menu as MenuIcon } from "@mui/icons-material";
 import TrackerProps from "sharedTypes/trackers";
+import { useAuthContext } from "@/context/AuthContext";
+import { deleteTracker } from "@/firebase/database/actions";
 
 interface TrackerListProps {
     trackers: TrackerProps[];
@@ -28,6 +30,8 @@ const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
     const [showConfirmDeleteButton, setShowConfirmDeleteButton] =
         useState<boolean>(false);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
+    const { user } = useAuthContext();
 
     const openDeleteConfirmationDialog = (trackerId: string) => {
         const targetTracker = trackers.find(
@@ -45,7 +49,12 @@ const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
         setShowConfirmDeleteButton(e.target.value === selectedTrackerName);
     };
 
-    const deleteTracker = () => {};
+    const triggerDeleteTracker = async () => {
+        const { error } = await deleteTracker(user.uid, selectedTrackerId);
+
+        if (!error) {
+        }
+    };
 
     const handleClose = () => {
         setDialogOpen(false);
@@ -152,7 +161,7 @@ const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
                 {showConfirmDeleteButton && (
                     <span className="mx-auto mb-4">
                         <button
-                            onClick={deleteTracker}
+                            onClick={triggerDeleteTracker}
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
                         >
                             Confirm
