@@ -20,7 +20,7 @@ const EntriesPage = ({ params }) => {
     const [trackerName, setTrackerName] = useState("");
     const [atLeastOneEntry, setAtLeastOneEntry] = useState(false);
     const [columnDefs] = useState<ColDef[]>([
-        { headerName: "Count", field: "contents" },
+        { headerName: "Count", field: "contents", flex: 1, resizable: false },
         {
             headerName: "Date",
             field: "datetime",
@@ -29,6 +29,8 @@ const EntriesPage = ({ params }) => {
             ) => {
                 return dayjs.unix(params.value).format("MM/DD/YYYY");
             },
+            flex: 1,
+            resizable: false,
         },
     ]);
     const gridRef = useRef<AgGridReact<EntryProps>>(null);
@@ -66,13 +68,7 @@ const EntriesPage = ({ params }) => {
                 <span className="flex flex-col items-center">
                     <p>{trackerName} Entries</p>
 
-                    <div
-                        className="ag-theme-quartz mt-4"
-                        style={{
-                            height: "500px",
-                            width: "600px",
-                        }}
-                    >
+                    <div className="ag-theme-quartz w-96 h-96 mt-4">
                         <AgGridReact
                             ref={gridRef}
                             columnDefs={columnDefs}
