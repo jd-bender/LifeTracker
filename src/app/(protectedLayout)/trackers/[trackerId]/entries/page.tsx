@@ -10,9 +10,6 @@ import { AgGridReact } from "ag-grid-react";
 import { ColDef, ValueFormatterParams } from "ag-grid-community";
 import dayjs from "dayjs";
 
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-quartz.css";
-
 interface EntryProps {
     contents: string;
     datetime: number;
