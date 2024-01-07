@@ -10,13 +10,13 @@ import { AgGridReact } from "ag-grid-react";
 import { ColDef, ValueFormatterParams } from "ag-grid-community";
 import dayjs from "dayjs";
 
-interface EntryProps {
+interface IEntry {
     contents: string;
     datetime: number;
 }
 
 const EntriesPage = ({ params }) => {
-    const [entries, setEntries] = useState<EntryProps[]>([]);
+    const [entries, setEntries] = useState<IEntry[]>([]);
     const [trackerName, setTrackerName] = useState("");
     const [atLeastOneEntry, setAtLeastOneEntry] = useState(false);
     const [columnDefs] = useState<ColDef[]>([
@@ -24,16 +24,14 @@ const EntriesPage = ({ params }) => {
         {
             headerName: "Date",
             field: "datetime",
-            valueFormatter: (
-                params: ValueFormatterParams<EntryProps, number>,
-            ) => {
+            valueFormatter: (params: ValueFormatterParams<IEntry, number>) => {
                 return dayjs.unix(params.value).format("MM/DD/YYYY");
             },
             flex: 1,
             resizable: false,
         },
     ]);
-    const gridRef = useRef<AgGridReact<EntryProps>>(null);
+    const gridRef = useRef<AgGridReact<IEntry>>(null);
     const { user } = useAuthContext();
     const { trackers } = useTrackerContext();
 

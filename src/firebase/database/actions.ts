@@ -52,13 +52,13 @@ function getSnapshotChildren(snapshot: DataSnapshot) {
     }
 }
 
-type userDataType = {
+interface IUserData {
     firstName: string;
     lastName: string;
     email: string;
-};
+}
 
-export async function addUserData(userId: string, userData: userDataType) {
+export async function addUserData(userId: string, userData: IUserData) {
     let error: object;
 
     try {
@@ -71,7 +71,7 @@ export async function addUserData(userId: string, userData: userDataType) {
 }
 
 export async function getUserData(userId: string) {
-    let result: userDataType, error: object;
+    let result: IUserData, error: object;
 
     try {
         const snapshot = await getSnapshot(`users/${userId}/profile`);
@@ -86,7 +86,7 @@ export async function getUserData(userId: string) {
     return { result, error };
 }
 
-export async function updateUserData(userId: string, userData: userDataType) {
+export async function updateUserData(userId: string, userData: IUserData) {
     let error: object;
 
     try {

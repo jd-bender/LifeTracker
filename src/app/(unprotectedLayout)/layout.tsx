@@ -1,11 +1,11 @@
 import "../../globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
 
-interface RootLayoutProps {
-    children: React.JSX.Element
-};
+interface IRootLayout {
+    children: React.JSX.Element;
+}
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: IRootLayout) {
     return (
         <html lang="en">
             <body className="bg-teal-300">

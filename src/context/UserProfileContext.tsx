@@ -3,23 +3,23 @@ import { useState, createContext, useContext, useEffect } from "react";
 import { getUserData } from "@/firebase/database/actions";
 import { useAuthContext } from "./AuthContext";
 
-interface userProfileDataProps {
+interface IUserProfileData {
     firstName: string;
     lastName: string;
     email: string;
 }
 
-interface UserProfileContextType {
-    userProfileData: userProfileDataProps;
+interface IUserProfileContext {
+    userProfileData: IUserProfileData;
 }
 
-const UserProfileContext = createContext<UserProfileContextType | null>(null);
+const UserProfileContext = createContext<IUserProfileContext | null>(null);
 
 export const useUserProfileContext = () => useContext(UserProfileContext);
 
 export const UserProfileContextProvider = ({ children }) => {
     const [userProfileData, setUserProfileData] =
-        useState<userProfileDataProps | null>(null);
+        useState<IUserProfileData | null>(null);
     const { user } = useAuthContext();
 
     useEffect(() => {

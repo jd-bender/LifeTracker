@@ -4,14 +4,14 @@ import { addUserData } from "../database/actions";
 
 const auth = getAuth(firebase_app);
 
-interface signUpProps {
+interface ISignUp {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
 }
 
-export default async function signUp(userData: signUpProps) {
+export default async function signUp(userData: ISignUp) {
     let error: object;
 
     try {

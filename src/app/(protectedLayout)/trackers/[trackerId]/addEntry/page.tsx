@@ -10,13 +10,13 @@ import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Toast, { IToast } from "@/ui/Toast";
 
-interface paramsProps {
+interface IParams {
     params: {
         trackerId: string;
     };
 }
 
-const AddEntryPage = ({ params }: paramsProps) => {
+const AddEntryPage = ({ params }: IParams) => {
     const [count, setCount] = useState(0);
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);

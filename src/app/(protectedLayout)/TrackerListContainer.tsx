@@ -16,12 +16,12 @@ import TrackerProps from "sharedTypes/trackers";
 import { useAuthContext } from "@/context/AuthContext";
 import { deleteTracker } from "@/firebase/database/actions";
 
-interface TrackerListProps {
+interface ITrackerList {
     trackers: TrackerProps[];
     type: string;
 }
 
-const TrackerListContainer = ({ trackers, type }: TrackerListProps) => {
+const TrackerListContainer = ({ trackers, type }: ITrackerList) => {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     const [selectedTrackerId, setSelectedTrackerId] = useState<string>("");
     const [selectedTrackerName, setSelectedTrackerName] = useState<string>("");

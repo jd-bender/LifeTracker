@@ -4,11 +4,11 @@ import { TrackerContextProvider } from "@/context/TrackerContext";
 import { UserProfileContextProvider } from "@/context/UserProfileContext";
 import HeaderBar from "./HeaderBar";
 
-interface RootLayoutType {
+interface IRootLayout {
     children: React.JSX.Element;
-};
+}
 
-const RootLayout = ({ children }: RootLayoutType) => (
+const RootLayout = ({ children }: IRootLayout) => (
     <html lang="en">
         <head>
             <title>Life Tracker</title>

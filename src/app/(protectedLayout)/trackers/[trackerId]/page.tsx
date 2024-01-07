@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useTrackerContext } from "@/context/TrackerContext";
 import BackButton from "@/ui/BackButton";
 
-interface paramsProps {
+interface IParams {
     params: {
         trackerId: string;
     };
 }
 
-const TrackerPage = ({ params }: paramsProps) => {
+const TrackerPage = ({ params }: IParams) => {
     const [trackerName, setTrackerName] = useState("");
     const { trackers } = useTrackerContext();
 

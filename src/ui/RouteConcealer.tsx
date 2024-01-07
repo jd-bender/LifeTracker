@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/context/AuthContext";
 
-interface RouteType {
+interface IRoute {
     isProtected: boolean;
     className?: string;
     children: React.JSX.Element;
@@ -13,7 +13,7 @@ export default function RouteConcealer({
     isProtected,
     className = "",
     children,
-}: RouteType) {
+}: IRoute) {
     const { user } = useAuthContext();
     const router = useRouter();
 

@@ -1,18 +1,11 @@
-import {
-    useState,
-    useEffect,
-    SyntheticEvent,
-    useRef,
-    forwardRef,
-    useImperativeHandle,
-} from "react";
+import { useState, forwardRef, useImperativeHandle } from "react";
 import { Snackbar, Alert, AlertColor } from "@mui/material";
 
-interface ToastProps {
+interface IToastProps {
     hideDuration?: number;
 }
 
-const Toast = forwardRef((props: ToastProps, ref) => {
+const Toast = forwardRef((props: IToastProps, ref) => {
     const defaultAutoHideDuration = 3000;
 
     const [message, setMessage] = useState("");
